@@ -2,6 +2,7 @@
 
 import { APIResource } from '../resource';
 import * as Core from '../core';
+import { GetDocumentInfoListCursor, type GetDocumentInfoListCursorParams } from '../pagination';
 
 export class Documents extends APIResource {
   /**
@@ -60,8 +61,12 @@ export class Documents extends APIResource {
   getInfoList(
     body: DocumentGetInfoListParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<DocumentGetInfoListResponse> {
-    return this._client.post('/documents/get-document-info-list', { body, ...options });
+  ): Core.PagePromise<DocumentGetInfoListResponsesGetDocumentInfoListCursor, DocumentGetInfoListResponse> {
+    return this._client.getAPIList(
+      '/documents/get-document-info-list',
+      DocumentGetInfoListResponsesGetDocumentInfoListCursor,
+      { body, method: 'post', ...options },
+    );
   }
 
   /**
@@ -78,6 +83,8 @@ export class Documents extends APIResource {
     return this._client.post('/documents/get-page-info', { body, ...options });
   }
 }
+
+export class DocumentGetInfoListResponsesGetDocumentInfoListCursor extends GetDocumentInfoListCursor<DocumentGetInfoListResponse> {}
 
 export interface DocumentDeleteResponse {
   /**
@@ -124,28 +131,22 @@ export namespace DocumentGetInfoResponse {
 }
 
 export interface DocumentGetInfoListResponse {
-  documents: Array<DocumentGetInfoListResponse.Document>;
-}
+  id: string;
 
-export namespace DocumentGetInfoListResponse {
-  export interface Document {
-    id: string;
+  collection_name: string;
 
-    collection_name: string;
+  index_status: 'parsing_failed' | 'not_parsed' | 'not_indexed' | 'indexing' | 'indexed';
 
-    index_status: 'parsing_failed' | 'not_parsed' | 'not_indexed' | 'indexing' | 'indexed';
+  metadata: Record<string, string | Array<string>>;
 
-    metadata: Record<string, string | Array<string>>;
+  /**
+   * The number of pages in this document. This will be `null` if the document is
+   * parsing or failed to parse. It can also be `null` if the document is a filetype
+   * that does not support pages.
+   */
+  num_pages: number | null;
 
-    /**
-     * The number of pages in this document. This will be `null` if the document is
-     * parsing or failed to parse. It can also be `null` if the document is a filetype
-     * that does not support pages.
-     */
-    num_pages: number | null;
-
-    path: string;
-  }
+  path: string;
 }
 
 export interface DocumentGetPageInfoResponse {
@@ -309,23 +310,11 @@ export interface DocumentGetInfoParams {
   include_content?: boolean;
 }
 
-export interface DocumentGetInfoListParams {
+export interface DocumentGetInfoListParams extends GetDocumentInfoListCursorParams {
   /**
    * The name of the collection.
    */
   collection_name: string;
-
-  /**
-   * All documents returned will have a UUID strictly greater than the provided UUID.
-   * (Comparison will be on the binary representations of the UUIDs)
-   */
-  id_gt?: string | null;
-
-  /**
-   * The maximum number of documents to return. This field is by default 1024, and
-   * cannot be set larger than 1024
-   */
-  limit?: number;
 }
 
 export interface DocumentGetPageInfoParams {
@@ -367,6 +356,9 @@ export interface DocumentGetPageInfoParams {
   include_image?: boolean;
 }
 
+Documents.DocumentGetInfoListResponsesGetDocumentInfoListCursor =
+  DocumentGetInfoListResponsesGetDocumentInfoListCursor;
+
 export declare namespace Documents {
   export {
     type DocumentDeleteResponse as DocumentDeleteResponse,
@@ -374,6 +366,7 @@ export declare namespace Documents {
     type DocumentGetInfoResponse as DocumentGetInfoResponse,
     type DocumentGetInfoListResponse as DocumentGetInfoListResponse,
     type DocumentGetPageInfoResponse as DocumentGetPageInfoResponse,
+    DocumentGetInfoListResponsesGetDocumentInfoListCursor as DocumentGetInfoListResponsesGetDocumentInfoListCursor,
     type DocumentDeleteParams as DocumentDeleteParams,
     type DocumentAddParams as DocumentAddParams,
     type DocumentGetInfoParams as DocumentGetInfoParams,

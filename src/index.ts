@@ -23,6 +23,7 @@ import {
   DocumentDeleteResponse,
   DocumentGetInfoListParams,
   DocumentGetInfoListResponse,
+  DocumentGetInfoListResponsesGetDocumentInfoListCursor,
   DocumentGetInfoParams,
   DocumentGetInfoResponse,
   DocumentGetPageInfoParams,
@@ -201,6 +202,8 @@ export class Zeroentropy extends Core.APIClient {
 Zeroentropy.Status = Status;
 Zeroentropy.Collections = Collections;
 Zeroentropy.Documents = Documents;
+Zeroentropy.DocumentGetInfoListResponsesGetDocumentInfoListCursor =
+  DocumentGetInfoListResponsesGetDocumentInfoListCursor;
 Zeroentropy.Queries = Queries;
 Zeroentropy.Parsers = Parsers;
 Zeroentropy.Models = Models;
@@ -236,6 +239,7 @@ export declare namespace Zeroentropy {
     type DocumentGetInfoResponse as DocumentGetInfoResponse,
     type DocumentGetInfoListResponse as DocumentGetInfoListResponse,
     type DocumentGetPageInfoResponse as DocumentGetPageInfoResponse,
+    DocumentGetInfoListResponsesGetDocumentInfoListCursor as DocumentGetInfoListResponsesGetDocumentInfoListCursor,
     type DocumentDeleteParams as DocumentDeleteParams,
     type DocumentAddParams as DocumentAddParams,
     type DocumentGetInfoParams as DocumentGetInfoParams,
