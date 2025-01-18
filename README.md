@@ -157,7 +157,7 @@ async function fetchAllDocuments(params) {
   const allDocuments = [];
   // Automatically fetches more pages as needed.
   for await (const documentGetInfoListResponse of client.documents.getInfoList({
-    collection_name: 'collection_name',
+    collection_name: 'example_collection',
   })) {
     allDocuments.push(documentGetInfoListResponse);
   }
@@ -168,7 +168,7 @@ async function fetchAllDocuments(params) {
 Alternatively, you can request a single page at a time:
 
 ```ts
-let page = await client.documents.getInfoList({ collection_name: 'collection_name' });
+let page = await client.documents.getInfoList({ collection_name: 'example_collection' });
 for (const documentGetInfoListResponse of page.documents) {
   console.log(documentGetInfoListResponse);
 }
