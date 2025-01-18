@@ -27,6 +27,7 @@ import {
   DocumentListInfoResponse,
   Documents,
 } from './resources/documents';
+import { Models, StrJson } from './resources/models';
 import { ParserParseParams, ParserParseResponse, Parsers } from './resources/parsers';
 import {
   Queries,
@@ -157,6 +158,7 @@ export class Zeroentropy extends Core.APIClient {
   documents: API.Documents = new API.Documents(this);
   queries: API.Queries = new API.Queries(this);
   parsers: API.Parsers = new API.Parsers(this);
+  models: API.Models = new API.Models(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -199,6 +201,7 @@ Zeroentropy.Collections = Collections;
 Zeroentropy.Documents = Documents;
 Zeroentropy.Queries = Queries;
 Zeroentropy.Parsers = Parsers;
+Zeroentropy.Models = Models;
 export declare namespace Zeroentropy {
   export type RequestOptions = Core.RequestOptions;
 
@@ -247,6 +250,8 @@ export declare namespace Zeroentropy {
     type ParserParseResponse as ParserParseResponse,
     type ParserParseParams as ParserParseParams,
   };
+
+  export { Models as Models, type StrJson as StrJson };
 }
 
 export { toFile, fileFromPath } from './uploads';
