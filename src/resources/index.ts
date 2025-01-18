@@ -10,6 +10,7 @@ export {
   type CollectionGetListParams,
 } from './collections';
 export {
+  DocumentGetInfoListResponsesGetDocumentInfoListCursor,
   Documents,
   type DocumentDeleteResponse,
   type DocumentAddResponse,
