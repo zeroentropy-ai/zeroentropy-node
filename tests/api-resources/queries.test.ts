@@ -29,7 +29,7 @@ describe('resource queries', () => {
       collection_name: 'collection_name',
       k: 0,
       query: 'query',
-      filter: 'string',
+      filter: {},
       include_metadata: true,
     });
   });
@@ -54,7 +54,7 @@ describe('resource queries', () => {
       collection_name: 'collection_name',
       k: 0,
       query: 'query',
-      filter: 'string',
+      filter: {},
       include_content: true,
     });
   });
@@ -79,7 +79,7 @@ describe('resource queries', () => {
       collection_name: 'collection_name',
       k: 0,
       query: 'query',
-      filter: 'string',
+      filter: {},
       precise_responses: true,
     });
   });
