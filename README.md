@@ -4,7 +4,7 @@
 
 This library provides convenient access to the Zeroentropy REST API from server-side TypeScript or JavaScript.
 
-The REST API documentation can be found on [docs.zeroentropy.dev](https://docs.zeroentropy.dev). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.zeroentropy.dev](https://docs.zeroentropy.dev/api-reference). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
@@ -25,9 +25,13 @@ const client = new Zeroentropy({
 });
 
 async function main() {
-  const response = await client.documents.getInfo({ collection_name: 'collection_name', path: 'path' });
+  const response = await client.documents.add({
+    collection_name: 'example_collection',
+    content: { type: 'text', text: 'Example Content' },
+    path: 'my_document.txt',
+  });
 
-  console.log(response.document);
+  console.log(response.message);
 }
 
 main();
@@ -46,8 +50,7 @@ const client = new Zeroentropy({
 });
 
 async function main() {
-  const params: Zeroentropy.DocumentGetInfoParams = { collection_name: 'collection_name', path: 'path' };
-  const response: Zeroentropy.DocumentGetInfoResponse = await client.documents.getInfo(params);
+  const response: Zeroentropy.StatusGetStatusResponse = await client.status.getStatus();
 }
 
 main();
@@ -64,17 +67,15 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const response = await client.documents
-    .getInfo({ collection_name: 'collection_name', path: 'path' })
-    .catch(async (err) => {
-      if (err instanceof Zeroentropy.APIError) {
-        console.log(err.status); // 400
-        console.log(err.name); // BadRequestError
-        console.log(err.headers); // {server: 'nginx', ...}
-      } else {
-        throw err;
-      }
-    });
+  const response = await client.status.getStatus().catch(async (err) => {
+    if (err instanceof Zeroentropy.APIError) {
+      console.log(err.status); // 400
+      console.log(err.name); // BadRequestError
+      console.log(err.headers); // {server: 'nginx', ...}
+    } else {
+      throw err;
+    }
+  });
 }
 
 main();
@@ -109,7 +110,7 @@ const client = new Zeroentropy({
 });
 
 // Or, configure per-request:
-await client.documents.getInfo({ collection_name: 'collection_name', path: 'path' }, {
+await client.status.getStatus({
   maxRetries: 5,
 });
 ```
@@ -126,7 +127,7 @@ const client = new Zeroentropy({
 });
 
 // Override per-request:
-await client.documents.getInfo({ collection_name: 'collection_name', path: 'path' }, {
+await client.status.getStatus({
   timeout: 5 * 1000,
 });
 ```
@@ -180,17 +181,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Zeroentropy();
 
-const response = await client.documents
-  .getInfo({ collection_name: 'collection_name', path: 'path' })
-  .asResponse();
+const response = await client.status.getStatus().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: response, response: raw } = await client.documents
-  .getInfo({ collection_name: 'collection_name', path: 'path' })
-  .withResponse();
+const { data: response, response: raw } = await client.status.getStatus().withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(response.document);
+console.log(response.num_documents);
 ```
 
 ### Making custom/undocumented requests
@@ -294,12 +291,9 @@ const client = new Zeroentropy({
 });
 
 // Override per-request:
-await client.documents.getInfo(
-  { collection_name: 'collection_name', path: 'path' },
-  {
-    httpAgent: new http.Agent({ keepAlive: false }),
-  },
-);
+await client.status.getStatus({
+  httpAgent: new http.Agent({ keepAlive: false }),
+});
 ```
 
 ## Semantic versioning
