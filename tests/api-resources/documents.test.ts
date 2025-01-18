@@ -9,8 +9,23 @@ const client = new Zeroentropy({
 });
 
 describe('resource documents', () => {
-  test('addDocument: only required params', async () => {
-    const responsePromise = client.documents.addDocument({
+  test('delete: only required params', async () => {
+    const responsePromise = client.documents.delete({ collection_name: 'collection_name', path: 'path' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('delete: required and optional params', async () => {
+    const response = await client.documents.delete({ collection_name: 'collection_name', path: 'path' });
+  });
+
+  test('add: only required params', async () => {
+    const responsePromise = client.documents.add({
       collection_name: 'collection_name',
       content: { text: 'text', type: 'text' },
       path: 'path',
@@ -24,34 +39,13 @@ describe('resource documents', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('addDocument: required and optional params', async () => {
-    const response = await client.documents.addDocument({
+  test('add: required and optional params', async () => {
+    const response = await client.documents.add({
       collection_name: 'collection_name',
       content: { text: 'text', type: 'text' },
       path: 'path',
       metadata: { foo: 'string' },
       overwrite: true,
-    });
-  });
-
-  test('deleteDocument: only required params', async () => {
-    const responsePromise = client.documents.deleteDocument({
-      collection_name: 'collection_name',
-      path: 'path',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('deleteDocument: required and optional params', async () => {
-    const response = await client.documents.deleteDocument({
-      collection_name: 'collection_name',
-      path: 'path',
     });
   });
 

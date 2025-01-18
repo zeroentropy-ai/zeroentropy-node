@@ -5,28 +5,25 @@ import * as Core from '../core';
 
 export class Collections extends APIResource {
   /**
-   * Adds a collection.
-   *
-   * If the collection already exists, a `409 Conflict` status code will be returned.
-   */
-  addCollection(
-    body: CollectionAddCollectionParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<CollectionAddCollectionResponse> {
-    return this._client.post('/collections/add-collection', { body, ...options });
-  }
-
-  /**
    * Deletes a collection.
    *
    * A `404 Not Found` status code will be returned, if the provided collection name
    * does not exist.
    */
-  deleteCollection(
-    body: CollectionDeleteCollectionParams,
+  delete(
+    body: CollectionDeleteParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<CollectionDeleteCollectionResponse> {
+  ): Core.APIPromise<CollectionDeleteResponse> {
     return this._client.post('/collections/delete-collection', { body, ...options });
+  }
+
+  /**
+   * Adds a collection.
+   *
+   * If the collection already exists, a `409 Conflict` status code will be returned.
+   */
+  add(body: CollectionAddParams, options?: Core.RequestOptions): Core.APIPromise<CollectionAddResponse> {
+    return this._client.post('/collections/add-collection', { body, ...options });
   }
 
   /**
@@ -40,14 +37,14 @@ export class Collections extends APIResource {
   }
 }
 
-export interface CollectionAddCollectionResponse {
+export interface CollectionDeleteResponse {
   /**
    * This string will always be "Success!". This may change in the future.
    */
   message?: string;
 }
 
-export interface CollectionDeleteCollectionResponse {
+export interface CollectionAddResponse {
   /**
    * This string will always be "Success!". This may change in the future.
    */
@@ -61,7 +58,14 @@ export interface CollectionGetListResponse {
   collection_names: Array<string>;
 }
 
-export interface CollectionAddCollectionParams {
+export interface CollectionDeleteParams {
+  /**
+   * The name of the collection to delete.
+   */
+  collection_name: string;
+}
+
+export interface CollectionAddParams {
   /**
    * The name of the collection to add. The maximum length of this string is 1024
    * characters. If special characters are used, then the UTF-8 encoded string cannot
@@ -70,22 +74,15 @@ export interface CollectionAddCollectionParams {
   collection_name: string;
 }
 
-export interface CollectionDeleteCollectionParams {
-  /**
-   * The name of the collection to delete.
-   */
-  collection_name: string;
-}
-
 export interface CollectionGetListParams {}
 
 export declare namespace Collections {
   export {
-    type CollectionAddCollectionResponse as CollectionAddCollectionResponse,
-    type CollectionDeleteCollectionResponse as CollectionDeleteCollectionResponse,
+    type CollectionDeleteResponse as CollectionDeleteResponse,
+    type CollectionAddResponse as CollectionAddResponse,
     type CollectionGetListResponse as CollectionGetListResponse,
-    type CollectionAddCollectionParams as CollectionAddCollectionParams,
-    type CollectionDeleteCollectionParams as CollectionDeleteCollectionParams,
+    type CollectionDeleteParams as CollectionDeleteParams,
+    type CollectionAddParams as CollectionAddParams,
     type CollectionGetListParams as CollectionGetListParams,
   };
 }

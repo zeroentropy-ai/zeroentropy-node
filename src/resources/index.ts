@@ -2,28 +2,28 @@
 
 export {
   Collections,
-  type CollectionAddCollectionResponse,
-  type CollectionDeleteCollectionResponse,
+  type CollectionDeleteResponse,
+  type CollectionAddResponse,
   type CollectionGetListResponse,
-  type CollectionAddCollectionParams,
-  type CollectionDeleteCollectionParams,
+  type CollectionDeleteParams,
+  type CollectionAddParams,
   type CollectionGetListParams,
 } from './collections';
 export {
   Documents,
-  type DocumentAddDocumentResponse,
-  type DocumentDeleteDocumentResponse,
+  type DocumentDeleteResponse,
+  type DocumentAddResponse,
   type DocumentGetInfoResponse,
   type DocumentGetInfoListResponse,
   type DocumentGetPageInfoResponse,
-  type DocumentAddDocumentParams,
-  type DocumentDeleteDocumentParams,
+  type DocumentDeleteParams,
+  type DocumentAddParams,
   type DocumentGetInfoParams,
   type DocumentGetInfoListParams,
   type DocumentGetPageInfoParams,
 } from './documents';
 export { Models, type StrJson } from './models';
-export { Parsers, type ParserParseResponse, type ParserParseParams } from './parsers';
+export { Parsers, type ParserParseDocumentResponse, type ParserParseDocumentParams } from './parsers';
 export {
   Queries,
   type QueryTopDocumentsResponse,

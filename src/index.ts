@@ -3,22 +3,24 @@
 import { type Agent } from './_shims/index';
 import * as Core from './core';
 import * as Errors from './error';
+import * as Pagination from './pagination';
+import { type GetDocumentInfoListCursorParams, GetDocumentInfoListCursorResponse } from './pagination';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
 import {
-  CollectionAddCollectionParams,
-  CollectionAddCollectionResponse,
-  CollectionDeleteCollectionParams,
-  CollectionDeleteCollectionResponse,
+  CollectionAddParams,
+  CollectionAddResponse,
+  CollectionDeleteParams,
+  CollectionDeleteResponse,
   CollectionGetListParams,
   CollectionGetListResponse,
   Collections,
 } from './resources/collections';
 import {
-  DocumentAddDocumentParams,
-  DocumentAddDocumentResponse,
-  DocumentDeleteDocumentParams,
-  DocumentDeleteDocumentResponse,
+  DocumentAddParams,
+  DocumentAddResponse,
+  DocumentDeleteParams,
+  DocumentDeleteResponse,
   DocumentGetInfoListParams,
   DocumentGetInfoListResponse,
   DocumentGetInfoParams,
@@ -28,7 +30,7 @@ import {
   Documents,
 } from './resources/documents';
 import { Models, StrJson } from './resources/models';
-import { ParserParseParams, ParserParseResponse, Parsers } from './resources/parsers';
+import { ParserParseDocumentParams, ParserParseDocumentResponse, Parsers } from './resources/parsers';
 import {
   Queries,
   QueryTopDocumentsParams,
@@ -205,6 +207,12 @@ Zeroentropy.Models = Models;
 export declare namespace Zeroentropy {
   export type RequestOptions = Core.RequestOptions;
 
+  export import GetDocumentInfoListCursor = Pagination.GetDocumentInfoListCursor;
+  export {
+    type GetDocumentInfoListCursorParams as GetDocumentInfoListCursorParams,
+    type GetDocumentInfoListCursorResponse as GetDocumentInfoListCursorResponse,
+  };
+
   export {
     Status as Status,
     type StatusGetStatusResponse as StatusGetStatusResponse,
@@ -213,23 +221,23 @@ export declare namespace Zeroentropy {
 
   export {
     Collections as Collections,
-    type CollectionAddCollectionResponse as CollectionAddCollectionResponse,
-    type CollectionDeleteCollectionResponse as CollectionDeleteCollectionResponse,
+    type CollectionDeleteResponse as CollectionDeleteResponse,
+    type CollectionAddResponse as CollectionAddResponse,
     type CollectionGetListResponse as CollectionGetListResponse,
-    type CollectionAddCollectionParams as CollectionAddCollectionParams,
-    type CollectionDeleteCollectionParams as CollectionDeleteCollectionParams,
+    type CollectionDeleteParams as CollectionDeleteParams,
+    type CollectionAddParams as CollectionAddParams,
     type CollectionGetListParams as CollectionGetListParams,
   };
 
   export {
     Documents as Documents,
-    type DocumentAddDocumentResponse as DocumentAddDocumentResponse,
-    type DocumentDeleteDocumentResponse as DocumentDeleteDocumentResponse,
+    type DocumentDeleteResponse as DocumentDeleteResponse,
+    type DocumentAddResponse as DocumentAddResponse,
     type DocumentGetInfoResponse as DocumentGetInfoResponse,
     type DocumentGetInfoListResponse as DocumentGetInfoListResponse,
     type DocumentGetPageInfoResponse as DocumentGetPageInfoResponse,
-    type DocumentAddDocumentParams as DocumentAddDocumentParams,
-    type DocumentDeleteDocumentParams as DocumentDeleteDocumentParams,
+    type DocumentDeleteParams as DocumentDeleteParams,
+    type DocumentAddParams as DocumentAddParams,
     type DocumentGetInfoParams as DocumentGetInfoParams,
     type DocumentGetInfoListParams as DocumentGetInfoListParams,
     type DocumentGetPageInfoParams as DocumentGetPageInfoParams,
@@ -247,8 +255,8 @@ export declare namespace Zeroentropy {
 
   export {
     Parsers as Parsers,
-    type ParserParseResponse as ParserParseResponse,
-    type ParserParseParams as ParserParseParams,
+    type ParserParseDocumentResponse as ParserParseDocumentResponse,
+    type ParserParseDocumentParams as ParserParseDocumentParams,
   };
 
   export { Models as Models, type StrJson as StrJson };
