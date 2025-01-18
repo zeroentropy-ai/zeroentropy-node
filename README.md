@@ -25,7 +25,9 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import Zeroentropy from 'zeroentropy';
 
-const client = new Zeroentropy();
+const client = new Zeroentropy({
+  bearerToken: process.env['ZEROENTROPY_API_KEY'], // This is the default and can be omitted
+});
 
 async function main() {
   const response = await client.documents.getInfo({ collection_name: 'collection_name', path: 'path' });
@@ -44,7 +46,9 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import Zeroentropy from 'zeroentropy';
 
-const client = new Zeroentropy();
+const client = new Zeroentropy({
+  bearerToken: process.env['ZEROENTROPY_API_KEY'], // This is the default and can be omitted
+});
 
 async function main() {
   const params: Zeroentropy.DocumentGetInfoParams = { collection_name: 'collection_name', path: 'path' };
