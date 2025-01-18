@@ -9,8 +9,8 @@ const client = new Zeroentropy({
 });
 
 describe('resource collections', () => {
-  test('addCollection: only required params', async () => {
-    const responsePromise = client.collections.addCollection({ collection_name: 'collection_name' });
+  test('delete: only required params', async () => {
+    const responsePromise = client.collections.delete({ collection_name: 'collection_name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -20,12 +20,12 @@ describe('resource collections', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('addCollection: required and optional params', async () => {
-    const response = await client.collections.addCollection({ collection_name: 'collection_name' });
+  test('delete: required and optional params', async () => {
+    const response = await client.collections.delete({ collection_name: 'collection_name' });
   });
 
-  test('deleteCollection: only required params', async () => {
-    const responsePromise = client.collections.deleteCollection({ collection_name: 'collection_name' });
+  test('add: only required params', async () => {
+    const responsePromise = client.collections.add({ collection_name: 'collection_name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -35,8 +35,8 @@ describe('resource collections', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('deleteCollection: required and optional params', async () => {
-    const response = await client.collections.deleteCollection({ collection_name: 'collection_name' });
+  test('add: required and optional params', async () => {
+    const response = await client.collections.add({ collection_name: 'collection_name' });
   });
 
   test('getList', async () => {

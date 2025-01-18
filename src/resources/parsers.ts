@@ -13,19 +13,22 @@ export class Parsers extends APIResource {
    * your own pre-processing step, before then uploading it to the search index using
    * the `text-pages` filetype.
    */
-  parse(body: ParserParseParams, options?: Core.RequestOptions): Core.APIPromise<ParserParseResponse> {
+  parseDocument(
+    body: ParserParseDocumentParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ParserParseDocumentResponse> {
     return this._client.post('/parsers/parse-document', { body, ...options });
   }
 }
 
-export interface ParserParseResponse {
+export interface ParserParseDocumentResponse {
   /**
    * The parsed pages. Each string will contain the full contents of a page.
    */
   pages: Array<string>;
 }
 
-export interface ParserParseParams {
+export interface ParserParseDocumentParams {
   /**
    * The document's raw data, as a base64-encoded string
    */
@@ -33,5 +36,8 @@ export interface ParserParseParams {
 }
 
 export declare namespace Parsers {
-  export { type ParserParseResponse as ParserParseResponse, type ParserParseParams as ParserParseParams };
+  export {
+    type ParserParseDocumentResponse as ParserParseDocumentResponse,
+    type ParserParseDocumentParams as ParserParseDocumentParams,
+  };
 }

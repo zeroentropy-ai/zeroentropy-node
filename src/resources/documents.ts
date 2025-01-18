@@ -5,6 +5,16 @@ import * as Core from '../core';
 
 export class Documents extends APIResource {
   /**
+   * Deletes a document
+   *
+   * A `404 Not Found` status code will be returned, if the provided collection name
+   * or document path does not exist.
+   */
+  delete(body: DocumentDeleteParams, options?: Core.RequestOptions): Core.APIPromise<DocumentDeleteResponse> {
+    return this._client.post('/documents/delete-document', { body, ...options });
+  }
+
+  /**
    * Adds a document to a given collection.
    *
    * A status code of `201 Created` will be returned if a document was successfully
@@ -18,24 +28,8 @@ export class Documents extends APIResource {
    * When a document is inserted, it can take time to appear in the index. Check the
    * `/status/get-status` endpoint to see progress.
    */
-  addDocument(
-    body: DocumentAddDocumentParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<DocumentAddDocumentResponse> {
+  add(body: DocumentAddParams, options?: Core.RequestOptions): Core.APIPromise<DocumentAddResponse> {
     return this._client.post('/documents/add-document', { body, ...options });
-  }
-
-  /**
-   * Deletes a document
-   *
-   * A `404 Not Found` status code will be returned, if the provided collection name
-   * or document path does not exist.
-   */
-  deleteDocument(
-    body: DocumentDeleteDocumentParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<DocumentDeleteDocumentResponse> {
-    return this._client.post('/documents/delete-document', { body, ...options });
   }
 
   /**
@@ -85,14 +79,14 @@ export class Documents extends APIResource {
   }
 }
 
-export interface DocumentAddDocumentResponse {
+export interface DocumentDeleteResponse {
   /**
    * This string will always be "Success!". This may change in the future.
    */
   message?: string;
 }
 
-export interface DocumentDeleteDocumentResponse {
+export interface DocumentAddResponse {
   /**
    * This string will always be "Success!". This may change in the future.
    */
@@ -196,7 +190,20 @@ export namespace DocumentGetPageInfoResponse {
   }
 }
 
-export interface DocumentAddDocumentParams {
+export interface DocumentDeleteParams {
+  /**
+   * The name of the collection.
+   */
+  collection_name: string;
+
+  /**
+   * The filepath of the document that you are deleting. A `404 Not Found` status
+   * code will be returned if no document with this path was found.
+   */
+  path: string;
+}
+
+export interface DocumentAddParams {
   /**
    * The name of the collection to be used for this request. A `404 Not Found` status
    * code will be returned if this collection name does not exist.
@@ -210,9 +217,9 @@ export interface DocumentAddDocumentParams {
    * document object you have passed in.
    */
   content:
-    | DocumentAddDocumentParams.APITextDocument
-    | DocumentAddDocumentParams.APITextPagesDocument
-    | DocumentAddDocumentParams.APIBinaryDocument;
+    | DocumentAddParams.APITextDocument
+    | DocumentAddParams.APITextPagesDocument
+    | DocumentAddParams.APIBinaryDocument;
 
   /**
    * The filepath of the document that you are adding. A `409 Conflict` status code
@@ -240,7 +247,7 @@ export interface DocumentAddDocumentParams {
   overwrite?: boolean;
 }
 
-export namespace DocumentAddDocumentParams {
+export namespace DocumentAddParams {
   export interface APITextDocument {
     /**
      * The content of this document, as a text string
@@ -280,19 +287,6 @@ export namespace DocumentAddDocumentParams {
      */
     type: 'auto';
   }
-}
-
-export interface DocumentDeleteDocumentParams {
-  /**
-   * The name of the collection.
-   */
-  collection_name: string;
-
-  /**
-   * The filepath of the document that you are deleting. A `404 Not Found` status
-   * code will be returned if no document with this path was found.
-   */
-  path: string;
 }
 
 export interface DocumentGetInfoParams {
@@ -375,13 +369,13 @@ export interface DocumentGetPageInfoParams {
 
 export declare namespace Documents {
   export {
-    type DocumentAddDocumentResponse as DocumentAddDocumentResponse,
-    type DocumentDeleteDocumentResponse as DocumentDeleteDocumentResponse,
+    type DocumentDeleteResponse as DocumentDeleteResponse,
+    type DocumentAddResponse as DocumentAddResponse,
     type DocumentGetInfoResponse as DocumentGetInfoResponse,
     type DocumentGetInfoListResponse as DocumentGetInfoListResponse,
     type DocumentGetPageInfoResponse as DocumentGetPageInfoResponse,
-    type DocumentAddDocumentParams as DocumentAddDocumentParams,
-    type DocumentDeleteDocumentParams as DocumentDeleteDocumentParams,
+    type DocumentDeleteParams as DocumentDeleteParams,
+    type DocumentAddParams as DocumentAddParams,
     type DocumentGetInfoParams as DocumentGetInfoParams,
     type DocumentGetInfoListParams as DocumentGetInfoListParams,
     type DocumentGetPageInfoParams as DocumentGetPageInfoParams,

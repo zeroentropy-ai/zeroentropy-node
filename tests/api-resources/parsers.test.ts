@@ -9,8 +9,8 @@ const client = new Zeroentropy({
 });
 
 describe('resource parsers', () => {
-  test('parse: only required params', async () => {
-    const responsePromise = client.parsers.parse({ base64_data: 'base64_data' });
+  test('parseDocument: only required params', async () => {
+    const responsePromise = client.parsers.parseDocument({ base64_data: 'base64_data' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -20,7 +20,7 @@ describe('resource parsers', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('parse: required and optional params', async () => {
-    const response = await client.parsers.parse({ base64_data: 'base64_data' });
+  test('parseDocument: required and optional params', async () => {
+    const response = await client.parsers.parseDocument({ base64_data: 'base64_data' });
   });
 });
