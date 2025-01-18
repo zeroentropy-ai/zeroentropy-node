@@ -63,9 +63,3 @@ Types:
 Methods:
 
 - <code title="post /parsers/parse-document">client.parsers.<a href="./src/resources/parsers.ts">parseDocument</a>({ ...params }) -> ParserParseDocumentResponse</code>
-
-# Models
-
-Types:
-
-- <code><a href="./src/resources/models.ts">StrJson</a></code>
