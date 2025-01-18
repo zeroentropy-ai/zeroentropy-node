@@ -52,7 +52,12 @@ const client = new Zeroentropy({
 });
 
 async function main() {
-  const response: Zeroentropy.StatusGetStatusResponse = await client.status.getStatus();
+  const params: Zeroentropy.DocumentAddParams = {
+    collection_name: 'example_collection',
+    content: { type: 'text', text: 'Example Content' },
+    path: 'my_document.txt',
+  };
+  const response: Zeroentropy.DocumentAddResponse = await client.documents.add(params);
 }
 
 main();
@@ -69,15 +74,21 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const response = await client.status.getStatus().catch(async (err) => {
-    if (err instanceof Zeroentropy.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
+  const response = await client.documents
+    .add({
+      collection_name: 'example_collection',
+      content: { type: 'text', text: 'Example Content' },
+      path: 'my_document.txt',
+    })
+    .catch(async (err) => {
+      if (err instanceof Zeroentropy.APIError) {
+        console.log(err.status); // 400
+        console.log(err.name); // BadRequestError
+        console.log(err.headers); // {server: 'nginx', ...}
+      } else {
+        throw err;
+      }
+    });
 }
 
 main();
@@ -112,7 +123,7 @@ const client = new Zeroentropy({
 });
 
 // Or, configure per-request:
-await client.status.getStatus({
+await client.documents.add({ collection_name: 'example_collection', content: { type: 'text', text: 'Example Content' }, path: 'my_document.txt' }, {
   maxRetries: 5,
 });
 ```
@@ -129,7 +140,7 @@ const client = new Zeroentropy({
 });
 
 // Override per-request:
-await client.status.getStatus({
+await client.documents.add({ collection_name: 'example_collection', content: { type: 'text', text: 'Example Content' }, path: 'my_document.txt' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -183,13 +194,25 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Zeroentropy();
 
-const response = await client.status.getStatus().asResponse();
+const response = await client.documents
+  .add({
+    collection_name: 'example_collection',
+    content: { type: 'text', text: 'Example Content' },
+    path: 'my_document.txt',
+  })
+  .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: response, response: raw } = await client.status.getStatus().withResponse();
+const { data: response, response: raw } = await client.documents
+  .add({
+    collection_name: 'example_collection',
+    content: { type: 'text', text: 'Example Content' },
+    path: 'my_document.txt',
+  })
+  .withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(response.num_documents);
+console.log(response.message);
 ```
 
 ### Making custom/undocumented requests
@@ -293,9 +316,16 @@ const client = new Zeroentropy({
 });
 
 // Override per-request:
-await client.status.getStatus({
-  httpAgent: new http.Agent({ keepAlive: false }),
-});
+await client.documents.add(
+  {
+    collection_name: 'example_collection',
+    content: { type: 'text', text: 'Example Content' },
+    path: 'my_document.txt',
+  },
+  {
+    httpAgent: new http.Agent({ keepAlive: false }),
+  },
+);
 ```
 
 ## Semantic versioning
