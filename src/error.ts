@@ -2,13 +2,13 @@
 
 import { castToError, Headers } from './core';
 
-export class ZeroentropyError extends Error {}
+export class ZeroEntropyError extends Error {}
 
 export class APIError<
   TStatus extends number | undefined = number | undefined,
   THeaders extends Headers | undefined = Headers | undefined,
   TError extends Object | undefined = Object | undefined,
-> extends ZeroentropyError {
+> extends ZeroEntropyError {
   /** HTTP status for the response that caused the error */
   readonly status: TStatus;
   /** HTTP headers for the response that caused the error */

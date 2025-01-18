@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import type { Zeroentropy } from './index';
+import type { ZeroEntropy } from './index';
 
 export class APIResource {
-  protected _client: Zeroentropy;
+  protected _client: ZeroEntropy;
 
-  constructor(client: Zeroentropy) {
+  constructor(client: ZeroEntropy) {
     this._client = client;
   }
 }
