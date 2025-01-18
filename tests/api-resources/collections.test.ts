@@ -9,24 +9,6 @@ const client = new Zeroentropy({
 });
 
 describe('resource collections', () => {
-  test('list', async () => {
-    const responsePromise = client.collections.list();
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('list: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.collections.list({}, { path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Zeroentropy.NotFoundError,
-    );
-  });
-
   test('addCollection: only required params', async () => {
     const responsePromise = client.collections.addCollection({ collection_name: 'collection_name' });
     const rawResponse = await responsePromise.asResponse();
@@ -55,5 +37,23 @@ describe('resource collections', () => {
 
   test('deleteCollection: required and optional params', async () => {
     const response = await client.collections.deleteCollection({ collection_name: 'collection_name' });
+  });
+
+  test('getList', async () => {
+    const responsePromise = client.collections.getList();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('getList: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(client.collections.getList({}, { path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Zeroentropy.NotFoundError,
+    );
   });
 });

@@ -74,6 +74,25 @@ describe('resource documents', () => {
     });
   });
 
+  test('getInfoList: only required params', async () => {
+    const responsePromise = client.documents.getInfoList({ collection_name: 'collection_name' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('getInfoList: required and optional params', async () => {
+    const response = await client.documents.getInfoList({
+      collection_name: 'collection_name',
+      id_gt: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      limit: 0,
+    });
+  });
+
   test('getPageInfo: only required params', async () => {
     const responsePromise = client.documents.getPageInfo({
       collection_name: 'collection_name',
@@ -96,25 +115,6 @@ describe('resource documents', () => {
       path: 'path',
       include_content: true,
       include_image: true,
-    });
-  });
-
-  test('listInfo: only required params', async () => {
-    const responsePromise = client.documents.listInfo({ collection_name: 'collection_name' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('listInfo: required and optional params', async () => {
-    const response = await client.documents.listInfo({
-      collection_name: 'collection_name',
-      id_gt: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      limit: 0,
     });
   });
 });
