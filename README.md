@@ -135,6 +135,39 @@ On timeout, an `APIConnectionTimeoutError` is thrown.
 
 Note that requests which time out will be [retried twice by default](#retries).
 
+## Auto-pagination
+
+List methods in the Zeroentropy API are paginated.
+You can use the `for await … of` syntax to iterate through items across all pages:
+
+```ts
+async function fetchAllDocuments(params) {
+  const allDocuments = [];
+  // Automatically fetches more pages as needed.
+  for await (const documentGetInfoListResponse of client.documents.getInfoList({
+    collection_name: 'collection_name',
+  })) {
+    allDocuments.push(documentGetInfoListResponse);
+  }
+  return allDocuments;
+}
+```
+
+Alternatively, you can request a single page at a time:
+
+```ts
+let page = await client.documents.getInfoList({ collection_name: 'collection_name' });
+for (const documentGetInfoListResponse of page.documents) {
+  console.log(documentGetInfoListResponse);
+}
+
+// Convenience methods are provided for manually paginating:
+while (page.hasNextPage()) {
+  page = await page.getNextPage();
+  // ...
+}
+```
+
 ## Advanced Usage
 
 ### Accessing raw Response data (e.g., headers)
