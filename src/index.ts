@@ -1,0 +1,269 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+import { type Agent } from './_shims/index';
+import * as Core from './core';
+import * as Errors from './error';
+import * as Uploads from './uploads';
+import * as API from './resources/index';
+import {
+  CollectionAddCollectionParams,
+  CollectionAddCollectionResponse,
+  CollectionDeleteCollectionParams,
+  CollectionDeleteCollectionResponse,
+  CollectionListParams,
+  CollectionListResponse,
+  Collections,
+} from './resources/collections';
+import {
+  DocumentAddDocumentParams,
+  DocumentAddDocumentResponse,
+  DocumentDeleteDocumentParams,
+  DocumentDeleteDocumentResponse,
+  DocumentGetInfoParams,
+  DocumentGetInfoResponse,
+  DocumentGetPageInfoParams,
+  DocumentGetPageInfoResponse,
+  DocumentListInfoParams,
+  DocumentListInfoResponse,
+  Documents,
+} from './resources/documents';
+import { ParserParseParams, ParserParseResponse, Parsers } from './resources/parsers';
+import {
+  Queries,
+  QueryTopDocumentsParams,
+  QueryTopDocumentsResponse,
+  QueryTopPagesParams,
+  QueryTopPagesResponse,
+  QueryTopSnippetsParams,
+  QueryTopSnippetsResponse,
+} from './resources/queries';
+import { Status, StatusGetStatusParams, StatusGetStatusResponse } from './resources/status';
+
+export interface ClientOptions {
+  /**
+   * Bearer token for accessing authenticated resources
+   */
+  bearerToken?: string | undefined;
+
+  /**
+   * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
+   *
+   * Defaults to process.env['ZEROENTROPY_BASE_URL'].
+   */
+  baseURL?: string | null | undefined;
+
+  /**
+   * The maximum amount of time (in milliseconds) that the client should wait for a response
+   * from the server before timing out a single request.
+   *
+   * Note that request timeouts are retried by default, so in a worst-case scenario you may wait
+   * much longer than this timeout before the promise succeeds or fails.
+   */
+  timeout?: number | undefined;
+
+  /**
+   * An HTTP agent used to manage HTTP(S) connections.
+   *
+   * If not provided, an agent will be constructed by default in the Node.js environment,
+   * otherwise no agent is used.
+   */
+  httpAgent?: Agent | undefined;
+
+  /**
+   * Specify a custom `fetch` function implementation.
+   *
+   * If not provided, we use `node-fetch` on Node.js and otherwise expect that `fetch` is
+   * defined globally.
+   */
+  fetch?: Core.Fetch | undefined;
+
+  /**
+   * The maximum number of times that the client will retry a request in case of a
+   * temporary failure, like a network error or a 5XX error from the server.
+   *
+   * @default 2
+   */
+  maxRetries?: number | undefined;
+
+  /**
+   * Default headers to include with every request to the API.
+   *
+   * These can be removed in individual requests by explicitly setting the
+   * header to `undefined` or `null` in request options.
+   */
+  defaultHeaders?: Core.Headers | undefined;
+
+  /**
+   * Default query parameters to include with every request to the API.
+   *
+   * These can be removed in individual requests by explicitly setting the
+   * param to `undefined` in request options.
+   */
+  defaultQuery?: Core.DefaultQuery | undefined;
+}
+
+/**
+ * API Client for interfacing with the Zeroentropy API.
+ */
+export class Zeroentropy extends Core.APIClient {
+  bearerToken: string;
+
+  private _options: ClientOptions;
+
+  /**
+   * API Client for interfacing with the Zeroentropy API.
+   *
+   * @param {string | undefined} [opts.bearerToken=process.env['ZERO_ENTROPY_BEARER_TOKEN'] ?? undefined]
+   * @param {string} [opts.baseURL=process.env['ZEROENTROPY_BASE_URL'] ?? https://api.zeroentropy.dev/v1] - Override the default base URL for the API.
+   * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
+   * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
+   * @param {Core.Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
+   * @param {number} [opts.maxRetries=2] - The maximum number of times the client will retry a request.
+   * @param {Core.Headers} opts.defaultHeaders - Default headers to include with every request to the API.
+   * @param {Core.DefaultQuery} opts.defaultQuery - Default query parameters to include with every request to the API.
+   */
+  constructor({
+    baseURL = Core.readEnv('ZEROENTROPY_BASE_URL'),
+    bearerToken = Core.readEnv('ZERO_ENTROPY_BEARER_TOKEN'),
+    ...opts
+  }: ClientOptions = {}) {
+    if (bearerToken === undefined) {
+      throw new Errors.ZeroentropyError(
+        "The ZERO_ENTROPY_BEARER_TOKEN environment variable is missing or empty; either provide it, or instantiate the Zeroentropy client with an bearerToken option, like new Zeroentropy({ bearerToken: 'My Bearer Token' }).",
+      );
+    }
+
+    const options: ClientOptions = {
+      bearerToken,
+      ...opts,
+      baseURL: baseURL || `https://api.zeroentropy.dev/v1`,
+    };
+
+    super({
+      baseURL: options.baseURL!,
+      timeout: options.timeout ?? 60000 /* 1 minute */,
+      httpAgent: options.httpAgent,
+      maxRetries: options.maxRetries,
+      fetch: options.fetch,
+    });
+
+    this._options = options;
+
+    this.bearerToken = bearerToken;
+  }
+
+  status: API.Status = new API.Status(this);
+  collections: API.Collections = new API.Collections(this);
+  documents: API.Documents = new API.Documents(this);
+  queries: API.Queries = new API.Queries(this);
+  parsers: API.Parsers = new API.Parsers(this);
+
+  protected override defaultQuery(): Core.DefaultQuery | undefined {
+    return this._options.defaultQuery;
+  }
+
+  protected override defaultHeaders(opts: Core.FinalRequestOptions): Core.Headers {
+    return {
+      ...super.defaultHeaders(opts),
+      ...this._options.defaultHeaders,
+    };
+  }
+
+  protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
+    return { Authorization: `Bearer ${this.bearerToken}` };
+  }
+
+  static Zeroentropy = this;
+  static DEFAULT_TIMEOUT = 60000; // 1 minute
+
+  static ZeroentropyError = Errors.ZeroentropyError;
+  static APIError = Errors.APIError;
+  static APIConnectionError = Errors.APIConnectionError;
+  static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
+  static APIUserAbortError = Errors.APIUserAbortError;
+  static NotFoundError = Errors.NotFoundError;
+  static ConflictError = Errors.ConflictError;
+  static RateLimitError = Errors.RateLimitError;
+  static BadRequestError = Errors.BadRequestError;
+  static AuthenticationError = Errors.AuthenticationError;
+  static InternalServerError = Errors.InternalServerError;
+  static PermissionDeniedError = Errors.PermissionDeniedError;
+  static UnprocessableEntityError = Errors.UnprocessableEntityError;
+
+  static toFile = Uploads.toFile;
+  static fileFromPath = Uploads.fileFromPath;
+}
+
+Zeroentropy.Status = Status;
+Zeroentropy.Collections = Collections;
+Zeroentropy.Documents = Documents;
+Zeroentropy.Queries = Queries;
+Zeroentropy.Parsers = Parsers;
+export declare namespace Zeroentropy {
+  export type RequestOptions = Core.RequestOptions;
+
+  export {
+    Status as Status,
+    type StatusGetStatusResponse as StatusGetStatusResponse,
+    type StatusGetStatusParams as StatusGetStatusParams,
+  };
+
+  export {
+    Collections as Collections,
+    type CollectionListResponse as CollectionListResponse,
+    type CollectionAddCollectionResponse as CollectionAddCollectionResponse,
+    type CollectionDeleteCollectionResponse as CollectionDeleteCollectionResponse,
+    type CollectionListParams as CollectionListParams,
+    type CollectionAddCollectionParams as CollectionAddCollectionParams,
+    type CollectionDeleteCollectionParams as CollectionDeleteCollectionParams,
+  };
+
+  export {
+    Documents as Documents,
+    type DocumentAddDocumentResponse as DocumentAddDocumentResponse,
+    type DocumentDeleteDocumentResponse as DocumentDeleteDocumentResponse,
+    type DocumentGetInfoResponse as DocumentGetInfoResponse,
+    type DocumentGetPageInfoResponse as DocumentGetPageInfoResponse,
+    type DocumentListInfoResponse as DocumentListInfoResponse,
+    type DocumentAddDocumentParams as DocumentAddDocumentParams,
+    type DocumentDeleteDocumentParams as DocumentDeleteDocumentParams,
+    type DocumentGetInfoParams as DocumentGetInfoParams,
+    type DocumentGetPageInfoParams as DocumentGetPageInfoParams,
+    type DocumentListInfoParams as DocumentListInfoParams,
+  };
+
+  export {
+    Queries as Queries,
+    type QueryTopDocumentsResponse as QueryTopDocumentsResponse,
+    type QueryTopPagesResponse as QueryTopPagesResponse,
+    type QueryTopSnippetsResponse as QueryTopSnippetsResponse,
+    type QueryTopDocumentsParams as QueryTopDocumentsParams,
+    type QueryTopPagesParams as QueryTopPagesParams,
+    type QueryTopSnippetsParams as QueryTopSnippetsParams,
+  };
+
+  export {
+    Parsers as Parsers,
+    type ParserParseResponse as ParserParseResponse,
+    type ParserParseParams as ParserParseParams,
+  };
+}
+
+export { toFile, fileFromPath } from './uploads';
+export {
+  ZeroentropyError,
+  APIError,
+  APIConnectionError,
+  APIConnectionTimeoutError,
+  APIUserAbortError,
+  NotFoundError,
+  ConflictError,
+  RateLimitError,
+  BadRequestError,
+  AuthenticationError,
+  InternalServerError,
+  PermissionDeniedError,
+  UnprocessableEntityError,
+} from './error';
+
+export default Zeroentropy;
