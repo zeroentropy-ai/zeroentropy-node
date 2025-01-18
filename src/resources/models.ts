@@ -4,7 +4,7 @@ import { APIResource } from '../resource';
 
 export class Models extends APIResource {}
 
-export type StrJson = string | Array<string> | Array<StrJson> | Record<string, StrJson>;
+export type StrJson = unknown;
 
 export declare namespace Models {
   export { type StrJson as StrJson };
