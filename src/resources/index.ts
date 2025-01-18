@@ -23,7 +23,6 @@ export {
   type DocumentGetInfoListParams,
   type DocumentGetPageInfoParams,
 } from './documents';
-export { Models, type StrJson } from './models';
 export { Parsers, type ParserParseDocumentResponse, type ParserParseDocumentParams } from './parsers';
 export {
   Queries,

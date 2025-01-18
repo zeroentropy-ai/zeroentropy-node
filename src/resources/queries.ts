@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import * as Core from '../core';
-import * as ModelsAPI from './models';
 
 export class Queries extends APIResource {
   /**
@@ -163,7 +162,7 @@ export interface QueryTopDocumentsParams {
    * The query filter to apply. Please read [Metadata Filtering](/metadata-filtering)
    * for more information. If not provided, then all documents will be searched.
    */
-  filter?: ModelsAPI.StrJson | null;
+  filter?: Record<string, unknown> | null;
 
   /**
    * Whether or not to include the metadata in the top documents response. If not
@@ -195,7 +194,7 @@ export interface QueryTopPagesParams {
    * The query filter to apply. Please read [Metadata Filtering](/metadata-filtering)
    * for more information. If not provided, then all documents will be searched.
    */
-  filter?: ModelsAPI.StrJson | null;
+  filter?: Record<string, unknown> | null;
 
   /**
    * If set to true, then the content of all pages will be returned.
@@ -226,7 +225,7 @@ export interface QueryTopSnippetsParams {
    * The query filter to apply. Please read [Metadata Filtering](/metadata-filtering)
    * for more information. If not provided, then all documents will be searched.
    */
-  filter?: ModelsAPI.StrJson | null;
+  filter?: Record<string, unknown> | null;
 
   /**
    * Enable precise responses. Precise responses will have higher latency, but

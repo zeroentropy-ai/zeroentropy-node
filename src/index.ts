@@ -30,7 +30,6 @@ import {
   DocumentGetPageInfoResponse,
   Documents,
 } from './resources/documents';
-import { Models, StrJson } from './resources/models';
 import { ParserParseDocumentParams, ParserParseDocumentResponse, Parsers } from './resources/parsers';
 import {
   Queries,
@@ -107,15 +106,15 @@ export interface ClientOptions {
 }
 
 /**
- * API Client for interfacing with the Zeroentropy API.
+ * API Client for interfacing with the ZeroEntropy API.
  */
-export class Zeroentropy extends Core.APIClient {
+export class ZeroEntropy extends Core.APIClient {
   apiKey: string;
 
   private _options: ClientOptions;
 
   /**
-   * API Client for interfacing with the Zeroentropy API.
+   * API Client for interfacing with the ZeroEntropy API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['ZEROENTROPY_API_KEY'] ?? undefined]
    * @param {string} [opts.baseURL=process.env['ZEROENTROPY_BASE_URL'] ?? https://api.zeroentropy.dev/v1] - Override the default base URL for the API.
@@ -132,8 +131,8 @@ export class Zeroentropy extends Core.APIClient {
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
-      throw new Errors.ZeroentropyError(
-        "The ZEROENTROPY_API_KEY environment variable is missing or empty; either provide it, or instantiate the Zeroentropy client with an apiKey option, like new Zeroentropy({ apiKey: 'My API Key' }).",
+      throw new Errors.ZeroEntropyError(
+        "The ZEROENTROPY_API_KEY environment variable is missing or empty; either provide it, or instantiate the ZeroEntropy client with an apiKey option, like new ZeroEntropy({ apiKey: 'My API Key' }).",
       );
     }
 
@@ -161,7 +160,6 @@ export class Zeroentropy extends Core.APIClient {
   documents: API.Documents = new API.Documents(this);
   queries: API.Queries = new API.Queries(this);
   parsers: API.Parsers = new API.Parsers(this);
-  models: API.Models = new API.Models(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -178,10 +176,10 @@ export class Zeroentropy extends Core.APIClient {
     return { Authorization: `Bearer ${this.apiKey}` };
   }
 
-  static Zeroentropy = this;
+  static ZeroEntropy = this;
   static DEFAULT_TIMEOUT = 60000; // 1 minute
 
-  static ZeroentropyError = Errors.ZeroentropyError;
+  static ZeroEntropyError = Errors.ZeroEntropyError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -199,15 +197,14 @@ export class Zeroentropy extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-Zeroentropy.Status = Status;
-Zeroentropy.Collections = Collections;
-Zeroentropy.Documents = Documents;
-Zeroentropy.DocumentGetInfoListResponsesGetDocumentInfoListCursor =
+ZeroEntropy.Status = Status;
+ZeroEntropy.Collections = Collections;
+ZeroEntropy.Documents = Documents;
+ZeroEntropy.DocumentGetInfoListResponsesGetDocumentInfoListCursor =
   DocumentGetInfoListResponsesGetDocumentInfoListCursor;
-Zeroentropy.Queries = Queries;
-Zeroentropy.Parsers = Parsers;
-Zeroentropy.Models = Models;
-export declare namespace Zeroentropy {
+ZeroEntropy.Queries = Queries;
+ZeroEntropy.Parsers = Parsers;
+export declare namespace ZeroEntropy {
   export type RequestOptions = Core.RequestOptions;
 
   export import GetDocumentInfoListCursor = Pagination.GetDocumentInfoListCursor;
@@ -262,13 +259,11 @@ export declare namespace Zeroentropy {
     type ParserParseDocumentResponse as ParserParseDocumentResponse,
     type ParserParseDocumentParams as ParserParseDocumentParams,
   };
-
-  export { Models as Models, type StrJson as StrJson };
 }
 
 export { toFile, fileFromPath } from './uploads';
 export {
-  ZeroentropyError,
+  ZeroEntropyError,
   APIError,
   APIConnectionError,
   APIConnectionTimeoutError,
@@ -283,4 +278,4 @@ export {
   UnprocessableEntityError,
 } from './error';
 
-export default Zeroentropy;
+export default ZeroEntropy;

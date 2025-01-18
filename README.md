@@ -1,10 +1,10 @@
-# Zeroentropy Node API Library
+# ZeroEntropy Node API Library
 
 [![NPM version](https://img.shields.io/npm/v/zeroentropy.svg)](https://npmjs.org/package/zeroentropy) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/zeroentropy)
 
-This library provides convenient access to the Zeroentropy REST API from server-side TypeScript or JavaScript.
+This library provides convenient access to the ZeroEntropy REST API from server-side TypeScript or JavaScript.
 
-The REST API documentation can be found on [docs.zeroentropy.com](https://docs.zeroentropy.com). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.zeroentropy.dev](https://docs.zeroentropy.dev/api-reference). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
@@ -18,16 +18,20 @@ The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
-import Zeroentropy from 'zeroentropy';
+import ZeroEntropy from 'zeroentropy';
 
-const client = new Zeroentropy({
+const client = new ZeroEntropy({
   apiKey: process.env['ZEROENTROPY_API_KEY'], // This is the default and can be omitted
 });
 
 async function main() {
-  const response = await client.documents.getInfo({ collection_name: 'collection_name', path: 'path' });
+  const response = await client.documents.add({
+    collection_name: 'example_collection',
+    content: { type: 'text', text: 'Example Content' },
+    path: 'my_document.txt',
+  });
 
-  console.log(response.document);
+  console.log(response.message);
 }
 
 main();
@@ -39,15 +43,14 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import Zeroentropy from 'zeroentropy';
+import ZeroEntropy from 'zeroentropy';
 
-const client = new Zeroentropy({
+const client = new ZeroEntropy({
   apiKey: process.env['ZEROENTROPY_API_KEY'], // This is the default and can be omitted
 });
 
 async function main() {
-  const params: Zeroentropy.DocumentGetInfoParams = { collection_name: 'collection_name', path: 'path' };
-  const response: Zeroentropy.DocumentGetInfoResponse = await client.documents.getInfo(params);
+  const response: ZeroEntropy.StatusGetStatusResponse = await client.status.getStatus();
 }
 
 main();
@@ -64,17 +67,15 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const response = await client.documents
-    .getInfo({ collection_name: 'collection_name', path: 'path' })
-    .catch(async (err) => {
-      if (err instanceof Zeroentropy.APIError) {
-        console.log(err.status); // 400
-        console.log(err.name); // BadRequestError
-        console.log(err.headers); // {server: 'nginx', ...}
-      } else {
-        throw err;
-      }
-    });
+  const response = await client.status.getStatus().catch(async (err) => {
+    if (err instanceof ZeroEntropy.APIError) {
+      console.log(err.status); // 400
+      console.log(err.name); // BadRequestError
+      console.log(err.headers); // {server: 'nginx', ...}
+    } else {
+      throw err;
+    }
+  });
 }
 
 main();
@@ -104,12 +105,12 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const client = new Zeroentropy({
+const client = new ZeroEntropy({
   maxRetries: 0, // default is 2
 });
 
 // Or, configure per-request:
-await client.documents.getInfo({ collection_name: 'collection_name', path: 'path' }, {
+await client.status.getStatus({
   maxRetries: 5,
 });
 ```
@@ -121,12 +122,12 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const client = new Zeroentropy({
+const client = new ZeroEntropy({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
 // Override per-request:
-await client.documents.getInfo({ collection_name: 'collection_name', path: 'path' }, {
+await client.status.getStatus({
   timeout: 5 * 1000,
 });
 ```
@@ -134,6 +135,39 @@ await client.documents.getInfo({ collection_name: 'collection_name', path: 'path
 On timeout, an `APIConnectionTimeoutError` is thrown.
 
 Note that requests which time out will be [retried twice by default](#retries).
+
+## Auto-pagination
+
+List methods in the ZeroEntropy API are paginated.
+You can use the `for await … of` syntax to iterate through items across all pages:
+
+```ts
+async function fetchAllDocuments(params) {
+  const allDocuments = [];
+  // Automatically fetches more pages as needed.
+  for await (const documentGetInfoListResponse of client.documents.getInfoList({
+    collection_name: 'example_collection',
+  })) {
+    allDocuments.push(documentGetInfoListResponse);
+  }
+  return allDocuments;
+}
+```
+
+Alternatively, you can request a single page at a time:
+
+```ts
+let page = await client.documents.getInfoList({ collection_name: 'example_collection' });
+for (const documentGetInfoListResponse of page.documents) {
+  console.log(documentGetInfoListResponse);
+}
+
+// Convenience methods are provided for manually paginating:
+while (page.hasNextPage()) {
+  page = await page.getNextPage();
+  // ...
+}
+```
 
 ## Advanced Usage
 
@@ -145,19 +179,15 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 
 <!-- prettier-ignore -->
 ```ts
-const client = new Zeroentropy();
+const client = new ZeroEntropy();
 
-const response = await client.documents
-  .getInfo({ collection_name: 'collection_name', path: 'path' })
-  .asResponse();
+const response = await client.status.getStatus().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: response, response: raw } = await client.documents
-  .getInfo({ collection_name: 'collection_name', path: 'path' })
-  .withResponse();
+const { data: response, response: raw } = await client.status.getStatus().withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(response.document);
+console.log(response.num_documents);
 ```
 
 ### Making custom/undocumented requests
@@ -210,17 +240,17 @@ By default, this library uses `node-fetch` in Node, and expects a global `fetch`
 
 If you would prefer to use a global, web-standards-compliant `fetch` function even in a Node environment,
 (for example, if you are running Node with `--experimental-fetch` or using NextJS which polyfills with `undici`),
-add the following import before your first import `from "Zeroentropy"`:
+add the following import before your first import `from "ZeroEntropy"`:
 
 ```ts
 // Tell TypeScript and the package to use the global web fetch instead of node-fetch.
 // Note, despite the name, this does not add any polyfills, but expects them to be provided if needed.
 import 'zeroentropy/shims/web';
-import Zeroentropy from 'zeroentropy';
+import ZeroEntropy from 'zeroentropy';
 ```
 
 To do the inverse, add `import "zeroentropy/shims/node"` (which does import polyfills).
-This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/ZeroEntropy-AI/zeroentropy-node/tree/main/src/_shims#readme)).
+This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/zeroentropy-ai/zeroentropy-node/tree/main/src/_shims#readme)).
 
 ### Logging and middleware
 
@@ -229,9 +259,9 @@ which can be used to inspect or alter the `Request` or `Response` before/after e
 
 ```ts
 import { fetch } from 'undici'; // as one example
-import Zeroentropy from 'zeroentropy';
+import ZeroEntropy from 'zeroentropy';
 
-const client = new Zeroentropy({
+const client = new ZeroEntropy({
   fetch: async (url: RequestInfo, init?: RequestInit): Promise<Response> => {
     console.log('About to make a request', url, init);
     const response = await fetch(url, init);
@@ -256,17 +286,14 @@ import http from 'http';
 import { HttpsProxyAgent } from 'https-proxy-agent';
 
 // Configure the default for all requests:
-const client = new Zeroentropy({
+const client = new ZeroEntropy({
   httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
 });
 
 // Override per-request:
-await client.documents.getInfo(
-  { collection_name: 'collection_name', path: 'path' },
-  {
-    httpAgent: new http.Agent({ keepAlive: false }),
-  },
-);
+await client.status.getStatus({
+  httpAgent: new http.Agent({ keepAlive: false }),
+});
 ```
 
 ## Semantic versioning
@@ -279,7 +306,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/ZeroEntropy-AI/zeroentropy-node/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/zeroentropy-ai/zeroentropy-node/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 
