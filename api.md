@@ -12,15 +12,15 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/collections.ts">CollectionListResponse</a></code>
 - <code><a href="./src/resources/collections.ts">CollectionAddCollectionResponse</a></code>
 - <code><a href="./src/resources/collections.ts">CollectionDeleteCollectionResponse</a></code>
+- <code><a href="./src/resources/collections.ts">CollectionGetListResponse</a></code>
 
 Methods:
 
-- <code title="post /collections/get-collection-list">client.collections.<a href="./src/resources/collections.ts">list</a>() -> CollectionListResponse</code>
 - <code title="post /collections/add-collection">client.collections.<a href="./src/resources/collections.ts">addCollection</a>({ ...params }) -> CollectionAddCollectionResponse</code>
 - <code title="post /collections/delete-collection">client.collections.<a href="./src/resources/collections.ts">deleteCollection</a>({ ...params }) -> CollectionDeleteCollectionResponse</code>
+- <code title="post /collections/get-collection-list">client.collections.<a href="./src/resources/collections.ts">getList</a>() -> CollectionGetListResponse</code>
 
 # Documents
 
@@ -29,16 +29,16 @@ Types:
 - <code><a href="./src/resources/documents.ts">DocumentAddDocumentResponse</a></code>
 - <code><a href="./src/resources/documents.ts">DocumentDeleteDocumentResponse</a></code>
 - <code><a href="./src/resources/documents.ts">DocumentGetInfoResponse</a></code>
+- <code><a href="./src/resources/documents.ts">DocumentGetInfoListResponse</a></code>
 - <code><a href="./src/resources/documents.ts">DocumentGetPageInfoResponse</a></code>
-- <code><a href="./src/resources/documents.ts">DocumentListInfoResponse</a></code>
 
 Methods:
 
 - <code title="post /documents/add-document">client.documents.<a href="./src/resources/documents.ts">addDocument</a>({ ...params }) -> DocumentAddDocumentResponse</code>
 - <code title="post /documents/delete-document">client.documents.<a href="./src/resources/documents.ts">deleteDocument</a>({ ...params }) -> DocumentDeleteDocumentResponse</code>
 - <code title="post /documents/get-document-info">client.documents.<a href="./src/resources/documents.ts">getInfo</a>({ ...params }) -> DocumentGetInfoResponse</code>
+- <code title="post /documents/get-document-info-list">client.documents.<a href="./src/resources/documents.ts">getInfoList</a>({ ...params }) -> DocumentGetInfoListResponse</code>
 - <code title="post /documents/get-page-info">client.documents.<a href="./src/resources/documents.ts">getPageInfo</a>({ ...params }) -> DocumentGetPageInfoResponse</code>
-- <code title="post /documents/get-document-info-list">client.documents.<a href="./src/resources/documents.ts">listInfo</a>({ ...params }) -> DocumentListInfoResponse</code>
 
 # Queries
 

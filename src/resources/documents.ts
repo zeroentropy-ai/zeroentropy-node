@@ -53,6 +53,24 @@ export class Documents extends APIResource {
   }
 
   /**
+   * Retrives a list of document metadata information that matches the provided
+   * filters.
+   *
+   * The documents returned will be sorted by ID in ascending order. `id_gt` can be
+   * used for pagination, and should be set to the ID of the last document returned
+   * in the previous call.
+   *
+   * A `404 Not Found` will be returned if either the collection name does not exist,
+   * or the document path does not exist within the provided collection.
+   */
+  getInfoList(
+    body: DocumentGetInfoListParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<DocumentGetInfoListResponse> {
+    return this._client.post('/documents/get-document-info-list', { body, ...options });
+  }
+
+  /**
    * Retrieves information about a specific page. The request parameters define what
    * information you would like to receive.
    *
@@ -64,24 +82,6 @@ export class Documents extends APIResource {
     options?: Core.RequestOptions,
   ): Core.APIPromise<DocumentGetPageInfoResponse> {
     return this._client.post('/documents/get-page-info', { body, ...options });
-  }
-
-  /**
-   * Retrives a list of document metadata information that matches the provided
-   * filters.
-   *
-   * The documents returned will be sorted by ID in ascending order. `id_gt` can be
-   * used for pagination, and should be set to the ID of the last document returned
-   * in the previous call.
-   *
-   * A `404 Not Found` will be returned if either the collection name does not exist,
-   * or the document path does not exist within the provided collection.
-   */
-  listInfo(
-    body: DocumentListInfoParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<DocumentListInfoResponse> {
-    return this._client.post('/documents/get-document-info-list', { body, ...options });
   }
 }
 
@@ -129,6 +129,31 @@ export namespace DocumentGetInfoResponse {
   }
 }
 
+export interface DocumentGetInfoListResponse {
+  documents: Array<DocumentGetInfoListResponse.Document>;
+}
+
+export namespace DocumentGetInfoListResponse {
+  export interface Document {
+    id: string;
+
+    collection_name: string;
+
+    index_status: 'parsing_failed' | 'not_parsed' | 'not_indexed' | 'indexing' | 'indexed';
+
+    metadata: Record<string, string | Array<string>>;
+
+    /**
+     * The number of pages in this document. This will be `null` if the document is
+     * parsing or failed to parse. It can also be `null` if the document is a filetype
+     * that does not support pages.
+     */
+    num_pages: number | null;
+
+    path: string;
+  }
+}
+
 export interface DocumentGetPageInfoResponse {
   page: DocumentGetPageInfoResponse.Page;
 }
@@ -168,31 +193,6 @@ export namespace DocumentGetPageInfoResponse {
      * .txt). In all other cases, this field will be `null`.
      */
     image_base64_data?: string | null;
-  }
-}
-
-export interface DocumentListInfoResponse {
-  documents: Array<DocumentListInfoResponse.Document>;
-}
-
-export namespace DocumentListInfoResponse {
-  export interface Document {
-    id: string;
-
-    collection_name: string;
-
-    index_status: 'parsing_failed' | 'not_parsed' | 'not_indexed' | 'indexing' | 'indexed';
-
-    metadata: Record<string, string | Array<string>>;
-
-    /**
-     * The number of pages in this document. This will be `null` if the document is
-     * parsing or failed to parse. It can also be `null` if the document is a filetype
-     * that does not support pages.
-     */
-    num_pages: number | null;
-
-    path: string;
   }
 }
 
@@ -315,6 +315,25 @@ export interface DocumentGetInfoParams {
   include_content?: boolean;
 }
 
+export interface DocumentGetInfoListParams {
+  /**
+   * The name of the collection.
+   */
+  collection_name: string;
+
+  /**
+   * All documents returned will have a UUID strictly greater than the provided UUID.
+   * (Comparison will be on the binary representations of the UUIDs)
+   */
+  id_gt?: string | null;
+
+  /**
+   * The maximum number of documents to return. This field is by default 1024, and
+   * cannot be set larger than 1024
+   */
+  limit?: number;
+}
+
 export interface DocumentGetPageInfoParams {
   /**
    * The name of the collection.
@@ -354,36 +373,17 @@ export interface DocumentGetPageInfoParams {
   include_image?: boolean;
 }
 
-export interface DocumentListInfoParams {
-  /**
-   * The name of the collection.
-   */
-  collection_name: string;
-
-  /**
-   * All documents returned will have a UUID strictly greater than the provided UUID.
-   * (Comparison will be on the binary representations of the UUIDs)
-   */
-  id_gt?: string | null;
-
-  /**
-   * The maximum number of documents to return. This field is by default 1024, and
-   * cannot be set larger than 1024
-   */
-  limit?: number;
-}
-
 export declare namespace Documents {
   export {
     type DocumentAddDocumentResponse as DocumentAddDocumentResponse,
     type DocumentDeleteDocumentResponse as DocumentDeleteDocumentResponse,
     type DocumentGetInfoResponse as DocumentGetInfoResponse,
+    type DocumentGetInfoListResponse as DocumentGetInfoListResponse,
     type DocumentGetPageInfoResponse as DocumentGetPageInfoResponse,
-    type DocumentListInfoResponse as DocumentListInfoResponse,
     type DocumentAddDocumentParams as DocumentAddDocumentParams,
     type DocumentDeleteDocumentParams as DocumentDeleteDocumentParams,
     type DocumentGetInfoParams as DocumentGetInfoParams,
+    type DocumentGetInfoListParams as DocumentGetInfoListParams,
     type DocumentGetPageInfoParams as DocumentGetPageInfoParams,
-    type DocumentListInfoParams as DocumentListInfoParams,
   };
 }

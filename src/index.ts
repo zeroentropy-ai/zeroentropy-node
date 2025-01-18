@@ -10,8 +10,8 @@ import {
   CollectionAddCollectionResponse,
   CollectionDeleteCollectionParams,
   CollectionDeleteCollectionResponse,
-  CollectionListParams,
-  CollectionListResponse,
+  CollectionGetListParams,
+  CollectionGetListResponse,
   Collections,
 } from './resources/collections';
 import {
@@ -19,12 +19,12 @@ import {
   DocumentAddDocumentResponse,
   DocumentDeleteDocumentParams,
   DocumentDeleteDocumentResponse,
+  DocumentGetInfoListParams,
+  DocumentGetInfoListResponse,
   DocumentGetInfoParams,
   DocumentGetInfoResponse,
   DocumentGetPageInfoParams,
   DocumentGetPageInfoResponse,
-  DocumentListInfoParams,
-  DocumentListInfoResponse,
   Documents,
 } from './resources/documents';
 import { Models, StrJson } from './resources/models';
@@ -213,12 +213,12 @@ export declare namespace Zeroentropy {
 
   export {
     Collections as Collections,
-    type CollectionListResponse as CollectionListResponse,
     type CollectionAddCollectionResponse as CollectionAddCollectionResponse,
     type CollectionDeleteCollectionResponse as CollectionDeleteCollectionResponse,
-    type CollectionListParams as CollectionListParams,
+    type CollectionGetListResponse as CollectionGetListResponse,
     type CollectionAddCollectionParams as CollectionAddCollectionParams,
     type CollectionDeleteCollectionParams as CollectionDeleteCollectionParams,
+    type CollectionGetListParams as CollectionGetListParams,
   };
 
   export {
@@ -226,13 +226,13 @@ export declare namespace Zeroentropy {
     type DocumentAddDocumentResponse as DocumentAddDocumentResponse,
     type DocumentDeleteDocumentResponse as DocumentDeleteDocumentResponse,
     type DocumentGetInfoResponse as DocumentGetInfoResponse,
+    type DocumentGetInfoListResponse as DocumentGetInfoListResponse,
     type DocumentGetPageInfoResponse as DocumentGetPageInfoResponse,
-    type DocumentListInfoResponse as DocumentListInfoResponse,
     type DocumentAddDocumentParams as DocumentAddDocumentParams,
     type DocumentDeleteDocumentParams as DocumentDeleteDocumentParams,
     type DocumentGetInfoParams as DocumentGetInfoParams,
+    type DocumentGetInfoListParams as DocumentGetInfoListParams,
     type DocumentGetPageInfoParams as DocumentGetPageInfoParams,
-    type DocumentListInfoParams as DocumentListInfoParams,
   };
 
   export {

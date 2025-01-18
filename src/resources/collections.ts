@@ -5,16 +5,6 @@ import * as Core from '../core';
 
 export class Collections extends APIResource {
   /**
-   * Gets a complete list of all of your collections.
-   */
-  list(
-    body?: CollectionListParams | null | undefined,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<CollectionListResponse> {
-    return this._client.post('/collections/get-collection-list', { body, ...options });
-  }
-
-  /**
    * Adds a collection.
    *
    * If the collection already exists, a `409 Conflict` status code will be returned.
@@ -38,13 +28,16 @@ export class Collections extends APIResource {
   ): Core.APIPromise<CollectionDeleteCollectionResponse> {
     return this._client.post('/collections/delete-collection', { body, ...options });
   }
-}
 
-export interface CollectionListResponse {
   /**
-   * The names of the matched collections.
+   * Gets a complete list of all of your collections.
    */
-  collection_names: Array<string>;
+  getList(
+    body?: CollectionGetListParams | null | undefined,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<CollectionGetListResponse> {
+    return this._client.post('/collections/get-collection-list', { body, ...options });
+  }
 }
 
 export interface CollectionAddCollectionResponse {
@@ -61,7 +54,12 @@ export interface CollectionDeleteCollectionResponse {
   message?: string;
 }
 
-export interface CollectionListParams {}
+export interface CollectionGetListResponse {
+  /**
+   * The names of the matched collections.
+   */
+  collection_names: Array<string>;
+}
 
 export interface CollectionAddCollectionParams {
   /**
@@ -79,13 +77,15 @@ export interface CollectionDeleteCollectionParams {
   collection_name: string;
 }
 
+export interface CollectionGetListParams {}
+
 export declare namespace Collections {
   export {
-    type CollectionListResponse as CollectionListResponse,
     type CollectionAddCollectionResponse as CollectionAddCollectionResponse,
     type CollectionDeleteCollectionResponse as CollectionDeleteCollectionResponse,
-    type CollectionListParams as CollectionListParams,
+    type CollectionGetListResponse as CollectionGetListResponse,
     type CollectionAddCollectionParams as CollectionAddCollectionParams,
     type CollectionDeleteCollectionParams as CollectionDeleteCollectionParams,
+    type CollectionGetListParams as CollectionGetListParams,
   };
 }
