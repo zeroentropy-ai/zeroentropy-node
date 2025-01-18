@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Zeroentropy } from 'zeroentropy';
+import { ZeroEntropy } from 'zeroentropy';
 
-const { stringifyQuery } = Zeroentropy.prototype as any;
+const { stringifyQuery } = ZeroEntropy.prototype as any;
 
 describe(stringifyQuery, () => {
   for (const [input, expected] of [

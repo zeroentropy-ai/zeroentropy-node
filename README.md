@@ -1,8 +1,8 @@
-# Zeroentropy Node API Library
+# ZeroEntropy Node API Library
 
 [![NPM version](https://img.shields.io/npm/v/zeroentropy.svg)](https://npmjs.org/package/zeroentropy) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/zeroentropy)
 
-This library provides convenient access to the Zeroentropy REST API from server-side TypeScript or JavaScript.
+This library provides convenient access to the ZeroEntropy REST API from server-side TypeScript or JavaScript.
 
 The REST API documentation can be found on [docs.zeroentropy.dev](https://docs.zeroentropy.dev/api-reference). The full API of this library can be found in [api.md](api.md).
 
@@ -20,9 +20,9 @@ The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
-import Zeroentropy from 'zeroentropy';
+import ZeroEntropy from 'zeroentropy';
 
-const client = new Zeroentropy({
+const client = new ZeroEntropy({
   apiKey: process.env['ZEROENTROPY_API_KEY'], // This is the default and can be omitted
 });
 
@@ -45,14 +45,14 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import Zeroentropy from 'zeroentropy';
+import ZeroEntropy from 'zeroentropy';
 
-const client = new Zeroentropy({
+const client = new ZeroEntropy({
   apiKey: process.env['ZEROENTROPY_API_KEY'], // This is the default and can be omitted
 });
 
 async function main() {
-  const response: Zeroentropy.StatusGetStatusResponse = await client.status.getStatus();
+  const response: ZeroEntropy.StatusGetStatusResponse = await client.status.getStatus();
 }
 
 main();
@@ -70,7 +70,7 @@ a subclass of `APIError` will be thrown:
 ```ts
 async function main() {
   const response = await client.status.getStatus().catch(async (err) => {
-    if (err instanceof Zeroentropy.APIError) {
+    if (err instanceof ZeroEntropy.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
       console.log(err.headers); // {server: 'nginx', ...}
@@ -107,7 +107,7 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const client = new Zeroentropy({
+const client = new ZeroEntropy({
   maxRetries: 0, // default is 2
 });
 
@@ -124,7 +124,7 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const client = new Zeroentropy({
+const client = new ZeroEntropy({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
@@ -140,7 +140,7 @@ Note that requests which time out will be [retried twice by default](#retries).
 
 ## Auto-pagination
 
-List methods in the Zeroentropy API are paginated.
+List methods in the ZeroEntropy API are paginated.
 You can use the `for await … of` syntax to iterate through items across all pages:
 
 ```ts
@@ -181,7 +181,7 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 
 <!-- prettier-ignore -->
 ```ts
-const client = new Zeroentropy();
+const client = new ZeroEntropy();
 
 const response = await client.status.getStatus().asResponse();
 console.log(response.headers.get('X-My-Header'));
@@ -242,13 +242,13 @@ By default, this library uses `node-fetch` in Node, and expects a global `fetch`
 
 If you would prefer to use a global, web-standards-compliant `fetch` function even in a Node environment,
 (for example, if you are running Node with `--experimental-fetch` or using NextJS which polyfills with `undici`),
-add the following import before your first import `from "Zeroentropy"`:
+add the following import before your first import `from "ZeroEntropy"`:
 
 ```ts
 // Tell TypeScript and the package to use the global web fetch instead of node-fetch.
 // Note, despite the name, this does not add any polyfills, but expects them to be provided if needed.
 import 'zeroentropy/shims/web';
-import Zeroentropy from 'zeroentropy';
+import ZeroEntropy from 'zeroentropy';
 ```
 
 To do the inverse, add `import "zeroentropy/shims/node"` (which does import polyfills).
@@ -261,9 +261,9 @@ which can be used to inspect or alter the `Request` or `Response` before/after e
 
 ```ts
 import { fetch } from 'undici'; // as one example
-import Zeroentropy from 'zeroentropy';
+import ZeroEntropy from 'zeroentropy';
 
-const client = new Zeroentropy({
+const client = new ZeroEntropy({
   fetch: async (url: RequestInfo, init?: RequestInit): Promise<Response> => {
     console.log('About to make a request', url, init);
     const response = await fetch(url, init);
@@ -288,7 +288,7 @@ import http from 'http';
 import { HttpsProxyAgent } from 'https-proxy-agent';
 
 // Configure the default for all requests:
-const client = new Zeroentropy({
+const client = new ZeroEntropy({
   httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
 });
 
