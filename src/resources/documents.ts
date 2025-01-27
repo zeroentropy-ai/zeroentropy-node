@@ -6,6 +6,25 @@ import { GetDocumentInfoListCursor, type GetDocumentInfoListCursorParams } from 
 
 export class Documents extends APIResource {
   /**
+   * Updates a document. This endpoint is atomic.
+   *
+   * The only attribute currently supported for update is `metadata`. This endpoint
+   * can only be called with a non-null `metadata` if the document status is
+   * `indexed`.
+   *
+   * Sometimes, when updating a document, a new document ID will be assigned and the
+   * previous will be deleted. For this reason, the previous and the new document ID
+   * will both be returned in the response. If the document ID was not updated, then
+   * these two IDs will be identical.
+   *
+   * A `404 Not Found` status code will be returned, if the provided collection name
+   * or document path does not exist.
+   */
+  update(body: DocumentUpdateParams, options?: Core.RequestOptions): Core.APIPromise<DocumentUpdateResponse> {
+    return this._client.post('/documents/update-document', { body, ...options });
+  }
+
+  /**
    * Deletes a document
    *
    * A `404 Not Found` status code will be returned, if the provided collection name
@@ -86,6 +105,12 @@ export class Documents extends APIResource {
 
 export class DocumentGetInfoListResponsesGetDocumentInfoListCursor extends GetDocumentInfoListCursor<DocumentGetInfoListResponse> {}
 
+export interface DocumentUpdateResponse {
+  new_id: string;
+
+  previous_id: string;
+}
+
 export interface DocumentDeleteResponse {
   /**
    * This string will always be "Success!". This may change in the future.
@@ -110,7 +135,14 @@ export namespace DocumentGetInfoResponse {
 
     collection_name: string;
 
-    index_status: 'parsing_failed' | 'not_parsed' | 'not_indexed' | 'indexing' | 'indexed';
+    index_status:
+      | 'not_parsed'
+      | 'parsing'
+      | 'not_indexed'
+      | 'indexing'
+      | 'indexed'
+      | 'parsing_failed'
+      | 'indexing_failed';
 
     metadata: Record<string, string | Array<string>>;
 
@@ -135,7 +167,14 @@ export interface DocumentGetInfoListResponse {
 
   collection_name: string;
 
-  index_status: 'parsing_failed' | 'not_parsed' | 'not_indexed' | 'indexing' | 'indexed';
+  index_status:
+    | 'not_parsed'
+    | 'parsing'
+    | 'not_indexed'
+    | 'indexing'
+    | 'indexed'
+    | 'parsing_failed'
+    | 'indexing_failed';
 
   metadata: Record<string, string | Array<string>>;
 
@@ -163,6 +202,14 @@ export namespace DocumentGetPageInfoResponse {
     collection_name: string;
 
     /**
+     * A URL to an image of the page. This field will only be provided if the document
+     * has finished parsing, and if it is a filetype that is capable of producing
+     * images (e.g. PDF, DOCX, PPT, etc). In all other cases, this field will be
+     * `null`.
+     */
+    image_url: string | null;
+
+    /**
      * The specific page index of this page. Pages are 0-indexed, so that the 1st page
      * of a PDF is of page index 0.
      */
@@ -179,16 +226,28 @@ export namespace DocumentGetPageInfoResponse {
      * will be set to `null`.
      */
     content?: string | null;
-
-    /**
-     * An image of the page. This will be a base64-encoded string. Currently, this data
-     * is guaranteed to be a JPEG-encoded image. This field will only be provided if
-     * `include_image` was set to `true`, and the document has finished parsing. Also,
-     * the document must be a datatype that supports images (PDF, DOCX, PPT, but not
-     * .txt). In all other cases, this field will be `null`.
-     */
-    image_base64_data?: string | null;
   }
+}
+
+export interface DocumentUpdateParams {
+  /**
+   * The name of the collection.
+   */
+  collection_name: string;
+
+  /**
+   * The filepath of the document that you are updating. A `404 Not Found` status
+   * code will be returned if no document with this path was found.
+   */
+  path: string;
+
+  /**
+   * If this field is provided, the given metadata json will replace the document's
+   * existing metadata json. In other words, if you want to add a new field, you will
+   * need to provide the entire metadata object (Both the original fields, and the
+   * new field).
+   */
+  metadata?: Record<string, string | Array<string>> | null;
 }
 
 export interface DocumentDeleteParams {
@@ -343,17 +402,6 @@ export interface DocumentGetPageInfoParams {
    * rather than `null`. This string will contain the full contents of the page.
    */
   include_content?: boolean;
-
-  /**
-   * If `true`, then the response will have the `image_base64_data` attribute be a
-   * `string`\*, rather than `null`. This string will contain the image data of the
-   * document, as a base64-encoded string. Currently, this data is guaranteed to be a
-   * JPEG-encoded image.
-   *
-   * \*Note that the response may still be `null`, if the page has no image data,
-   * such as if the document was uploaded with raw text rather than as a PDF.
-   */
-  include_image?: boolean;
 }
 
 Documents.DocumentGetInfoListResponsesGetDocumentInfoListCursor =
@@ -361,12 +409,14 @@ Documents.DocumentGetInfoListResponsesGetDocumentInfoListCursor =
 
 export declare namespace Documents {
   export {
+    type DocumentUpdateResponse as DocumentUpdateResponse,
     type DocumentDeleteResponse as DocumentDeleteResponse,
     type DocumentAddResponse as DocumentAddResponse,
     type DocumentGetInfoResponse as DocumentGetInfoResponse,
     type DocumentGetInfoListResponse as DocumentGetInfoListResponse,
     type DocumentGetPageInfoResponse as DocumentGetPageInfoResponse,
     DocumentGetInfoListResponsesGetDocumentInfoListCursor as DocumentGetInfoListResponsesGetDocumentInfoListCursor,
+    type DocumentUpdateParams as DocumentUpdateParams,
     type DocumentDeleteParams as DocumentDeleteParams,
     type DocumentAddParams as DocumentAddParams,
     type DocumentGetInfoParams as DocumentGetInfoParams,
