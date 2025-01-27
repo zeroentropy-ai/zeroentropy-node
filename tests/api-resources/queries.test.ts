@@ -31,6 +31,7 @@ describe('resource queries', () => {
       query: 'query',
       filter: { foo: 'bar' },
       include_metadata: true,
+      latency_mode: 'low',
     });
   });
 
@@ -56,6 +57,7 @@ describe('resource queries', () => {
       query: 'query',
       filter: { foo: 'bar' },
       include_content: true,
+      latency_mode: 'low',
     });
   });
 
@@ -80,6 +82,7 @@ describe('resource queries', () => {
       k: 0,
       query: 'query',
       filter: { foo: 'bar' },
+      latency_mode: 'low',
       precise_responses: true,
     });
   });

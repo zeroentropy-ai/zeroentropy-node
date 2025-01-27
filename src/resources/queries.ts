@@ -75,6 +75,14 @@ export namespace QueryTopPagesResponse {
     content: string | null;
 
     /**
+     * A URL to an image of the page. This field will only be provided if the document
+     * has finished parsing, and if it is a filetype that is capable of producing
+     * images (e.g. PDF, DOCX, PPT, etc). In all other cases, this field will be
+     * `null`.
+     */
+    image_url: string | null;
+
+    /**
      * The index of this page in the document. This field is 0-indexed. So, the 1st
      * page has index 0, and the 2nd page has index 1.
      */
@@ -169,6 +177,15 @@ export interface QueryTopDocumentsParams {
    * provided, then the default will be `False`.
    */
   include_metadata?: boolean;
+
+  /**
+   * This option selects between our two latency modes. The higher latency mode takes
+   * longer, but can allow for more accurate responses. If desired, test both to
+   * customize your search experience for your particular use-case, or use the
+   * default of "low" and only swap if you need an additional improvement in search
+   * result quality.
+   */
+  latency_mode?: 'low' | 'high';
 }
 
 export interface QueryTopPagesParams {
@@ -200,6 +217,15 @@ export interface QueryTopPagesParams {
    * If set to true, then the content of all pages will be returned.
    */
   include_content?: boolean;
+
+  /**
+   * This option selects between our two latency modes. The higher latency mode takes
+   * longer, but can allow for more accurate responses. If desired, test both to
+   * customize your search experience for your particular use-case, or use the
+   * default of "low" and only swap if you need an additional improvement in search
+   * result quality.
+   */
+  latency_mode?: 'low' | 'high';
 }
 
 export interface QueryTopSnippetsParams {
@@ -226,6 +252,15 @@ export interface QueryTopSnippetsParams {
    * for more information. If not provided, then all documents will be searched.
    */
   filter?: Record<string, unknown> | null;
+
+  /**
+   * Note that for Top K Snippets, only latency_mode "low" is available. This option
+   * selects between our latency modes. The higher latency mode takes longer, but can
+   * allow for more accurate responses. If desired, test both to customize your
+   * search experience for your particular use-case, or use the default of "low" and
+   * only swap if you need an additional improvement in search result quality.
+   */
+  latency_mode?: 'low';
 
   /**
    * Enable precise responses. Precise responses will have higher latency, but

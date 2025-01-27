@@ -1,3 +1,13 @@
+# Admin
+
+Types:
+
+- <code><a href="./src/resources/admin.ts">AdminCreateOrganizationResponse</a></code>
+
+Methods:
+
+- <code title="post /admin/create-organization">client.admin.<a href="./src/resources/admin.ts">createOrganization</a>({ ...params }) -> AdminCreateOrganizationResponse</code>
+
 # Status
 
 Types:
@@ -26,6 +36,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/documents.ts">DocumentUpdateResponse</a></code>
 - <code><a href="./src/resources/documents.ts">DocumentDeleteResponse</a></code>
 - <code><a href="./src/resources/documents.ts">DocumentAddResponse</a></code>
 - <code><a href="./src/resources/documents.ts">DocumentGetInfoResponse</a></code>
@@ -34,6 +45,7 @@ Types:
 
 Methods:
 
+- <code title="post /documents/update-document">client.documents.<a href="./src/resources/documents.ts">update</a>({ ...params }) -> DocumentUpdateResponse</code>
 - <code title="post /documents/delete-document">client.documents.<a href="./src/resources/documents.ts">delete</a>({ ...params }) -> DocumentDeleteResponse</code>
 - <code title="post /documents/add-document">client.documents.<a href="./src/resources/documents.ts">add</a>({ ...params }) -> DocumentAddResponse</code>
 - <code title="post /documents/get-document-info">client.documents.<a href="./src/resources/documents.ts">getInfo</a>({ ...params }) -> DocumentGetInfoResponse</code>
