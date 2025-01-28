@@ -1,5 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+export { Admin, type AdminCreateOrganizationResponse, type AdminCreateOrganizationParams } from './admin';
 export {
   Collections,
   type CollectionDeleteResponse,
@@ -12,11 +13,13 @@ export {
 export {
   DocumentGetInfoListResponsesGetDocumentInfoListCursor,
   Documents,
+  type DocumentUpdateResponse,
   type DocumentDeleteResponse,
   type DocumentAddResponse,
   type DocumentGetInfoResponse,
   type DocumentGetInfoListResponse,
   type DocumentGetPageInfoResponse,
+  type DocumentUpdateParams,
   type DocumentDeleteParams,
   type DocumentAddParams,
   type DocumentGetInfoParams,

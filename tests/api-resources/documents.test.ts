@@ -9,6 +9,25 @@ const client = new ZeroEntropy({
 });
 
 describe('resource documents', () => {
+  test('update: only required params', async () => {
+    const responsePromise = client.documents.update({ collection_name: 'collection_name', path: 'path' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('update: required and optional params', async () => {
+    const response = await client.documents.update({
+      collection_name: 'collection_name',
+      path: 'path',
+      metadata: { foo: 'string' },
+    });
+  });
+
   test('delete: only required params', async () => {
     const responsePromise = client.documents.delete({ collection_name: 'collection_name', path: 'path' });
     const rawResponse = await responsePromise.asResponse();
@@ -108,7 +127,6 @@ describe('resource documents', () => {
       page_index: 0,
       path: 'path',
       include_content: true,
-      include_image: true,
     });
   });
 });

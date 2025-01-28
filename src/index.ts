@@ -7,6 +7,7 @@ import * as Pagination from './pagination';
 import { type GetDocumentInfoListCursorParams, GetDocumentInfoListCursorResponse } from './pagination';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
+import { Admin, AdminCreateOrganizationParams, AdminCreateOrganizationResponse } from './resources/admin';
 import {
   CollectionAddParams,
   CollectionAddResponse,
@@ -28,6 +29,8 @@ import {
   DocumentGetInfoResponse,
   DocumentGetPageInfoParams,
   DocumentGetPageInfoResponse,
+  DocumentUpdateParams,
+  DocumentUpdateResponse,
   Documents,
 } from './resources/documents';
 import { ParserParseDocumentParams, ParserParseDocumentResponse, Parsers } from './resources/parsers';
@@ -155,6 +158,7 @@ export class ZeroEntropy extends Core.APIClient {
     this.apiKey = apiKey;
   }
 
+  admin: API.Admin = new API.Admin(this);
   status: API.Status = new API.Status(this);
   collections: API.Collections = new API.Collections(this);
   documents: API.Documents = new API.Documents(this);
@@ -197,6 +201,7 @@ export class ZeroEntropy extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
+ZeroEntropy.Admin = Admin;
 ZeroEntropy.Status = Status;
 ZeroEntropy.Collections = Collections;
 ZeroEntropy.Documents = Documents;
@@ -211,6 +216,12 @@ export declare namespace ZeroEntropy {
   export {
     type GetDocumentInfoListCursorParams as GetDocumentInfoListCursorParams,
     type GetDocumentInfoListCursorResponse as GetDocumentInfoListCursorResponse,
+  };
+
+  export {
+    Admin as Admin,
+    type AdminCreateOrganizationResponse as AdminCreateOrganizationResponse,
+    type AdminCreateOrganizationParams as AdminCreateOrganizationParams,
   };
 
   export {
@@ -231,12 +242,14 @@ export declare namespace ZeroEntropy {
 
   export {
     Documents as Documents,
+    type DocumentUpdateResponse as DocumentUpdateResponse,
     type DocumentDeleteResponse as DocumentDeleteResponse,
     type DocumentAddResponse as DocumentAddResponse,
     type DocumentGetInfoResponse as DocumentGetInfoResponse,
     type DocumentGetInfoListResponse as DocumentGetInfoListResponse,
     type DocumentGetPageInfoResponse as DocumentGetPageInfoResponse,
     DocumentGetInfoListResponsesGetDocumentInfoListCursor as DocumentGetInfoListResponsesGetDocumentInfoListCursor,
+    type DocumentUpdateParams as DocumentUpdateParams,
     type DocumentDeleteParams as DocumentDeleteParams,
     type DocumentAddParams as DocumentAddParams,
     type DocumentGetInfoParams as DocumentGetInfoParams,
