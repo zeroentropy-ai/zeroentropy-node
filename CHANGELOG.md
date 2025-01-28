@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2025-01-28)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Chores
+
+* go live ([#16](https://github.com/zeroentropy-ai/zeroentropy-node/issues/16)) ([78b6967](https://github.com/zeroentropy-ai/zeroentropy-node/commit/78b6967a40788b16bd97cca17cbbb0d567e298e7))
+* go live ([#18](https://github.com/zeroentropy-ai/zeroentropy-node/issues/18)) ([a0d2514](https://github.com/zeroentropy-ai/zeroentropy-node/commit/a0d2514ae66f0fc6cde76a6da1d05cab7a13ba19))
+* go live ([#19](https://github.com/zeroentropy-ai/zeroentropy-node/issues/19)) ([b0dfe9f](https://github.com/zeroentropy-ai/zeroentropy-node/commit/b0dfe9f277b39876350fe1accee6ec22a9c24e72))
+* trigger release process ([b20b8f3](https://github.com/zeroentropy-ai/zeroentropy-node/commit/b20b8f393f4c3697bb1cfdee7f135a2b39407331))
+
 ## 0.1.0-alpha.2 (2025-01-18)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
