@@ -49,7 +49,7 @@ Methods:
 - <code title="post /documents/delete-document">client.documents.<a href="./src/resources/documents.ts">delete</a>({ ...params }) -> DocumentDeleteResponse</code>
 - <code title="post /documents/add-document">client.documents.<a href="./src/resources/documents.ts">add</a>({ ...params }) -> DocumentAddResponse</code>
 - <code title="post /documents/get-document-info">client.documents.<a href="./src/resources/documents.ts">getInfo</a>({ ...params }) -> DocumentGetInfoResponse</code>
-- <code title="post /documents/get-document-info-list">client.documents.<a href="./src/resources/documents.ts">getInfoList</a>({ ...params }) -> DocumentGetInfoListResponsesGetDocumentInfoListCursor</code>
+- <code title="post /documents/get-document-info-list">client.documents.<a href="./src/resources/documents.ts">getInfoList</a>({ ...params }) -> DocumentGetInfoListResponse</code>
 - <code title="post /documents/get-page-info">client.documents.<a href="./src/resources/documents.ts">getPageInfo</a>({ ...params }) -> DocumentGetPageInfoResponse</code>
 
 # Queries
