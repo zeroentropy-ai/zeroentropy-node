@@ -11,7 +11,6 @@ export {
   type CollectionGetListParams,
 } from './collections';
 export {
-  DocumentGetInfoListResponsesGetDocumentInfoListCursor,
   Documents,
   type DocumentUpdateResponse,
   type DocumentDeleteResponse,

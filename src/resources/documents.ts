@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import * as Core from '../core';
-import { GetDocumentInfoListCursor, type GetDocumentInfoListCursorParams } from '../pagination';
 
 export class Documents extends APIResource {
   /**
@@ -80,12 +79,8 @@ export class Documents extends APIResource {
   getInfoList(
     body: DocumentGetInfoListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<DocumentGetInfoListResponsesGetDocumentInfoListCursor, DocumentGetInfoListResponse> {
-    return this._client.getAPIList(
-      '/documents/get-document-info-list',
-      DocumentGetInfoListResponsesGetDocumentInfoListCursor,
-      { body, method: 'post', ...options },
-    );
+  ): Core.APIPromise<DocumentGetInfoListResponse> {
+    return this._client.post('/documents/get-document-info-list', { body, ...options });
   }
 
   /**
@@ -102,8 +97,6 @@ export class Documents extends APIResource {
     return this._client.post('/documents/get-page-info', { body, ...options });
   }
 }
-
-export class DocumentGetInfoListResponsesGetDocumentInfoListCursor extends GetDocumentInfoListCursor<DocumentGetInfoListResponse> {}
 
 export interface DocumentUpdateResponse {
   new_id: string;
@@ -163,29 +156,35 @@ export namespace DocumentGetInfoResponse {
 }
 
 export interface DocumentGetInfoListResponse {
-  id: string;
+  documents: Array<DocumentGetInfoListResponse.Document>;
+}
 
-  collection_name: string;
+export namespace DocumentGetInfoListResponse {
+  export interface Document {
+    id: string;
 
-  index_status:
-    | 'not_parsed'
-    | 'parsing'
-    | 'not_indexed'
-    | 'indexing'
-    | 'indexed'
-    | 'parsing_failed'
-    | 'indexing_failed';
+    collection_name: string;
 
-  metadata: Record<string, string | Array<string>>;
+    index_status:
+      | 'not_parsed'
+      | 'parsing'
+      | 'not_indexed'
+      | 'indexing'
+      | 'indexed'
+      | 'parsing_failed'
+      | 'indexing_failed';
 
-  /**
-   * The number of pages in this document. This will be `null` if the document is
-   * parsing or failed to parse. It can also be `null` if the document is a filetype
-   * that does not support pages.
-   */
-  num_pages: number | null;
+    metadata: Record<string, string | Array<string>>;
 
-  path: string;
+    /**
+     * The number of pages in this document. This will be `null` if the document is
+     * parsing or failed to parse. It can also be `null` if the document is a filetype
+     * that does not support pages.
+     */
+    num_pages: number | null;
+
+    path: string;
+  }
 }
 
 export interface DocumentGetPageInfoResponse {
@@ -369,11 +368,23 @@ export interface DocumentGetInfoParams {
   include_content?: boolean;
 }
 
-export interface DocumentGetInfoListParams extends GetDocumentInfoListCursorParams {
+export interface DocumentGetInfoListParams {
   /**
    * The name of the collection.
    */
   collection_name: string;
+
+  /**
+   * All documents returned will have a UUID strictly greater than the provided UUID.
+   * (Comparison will be on the binary representations of the UUIDs)
+   */
+  id_gt?: string | null;
+
+  /**
+   * The maximum number of documents to return. This field is by default 1024, and
+   * cannot be set larger than 1024
+   */
+  limit?: number;
 }
 
 export interface DocumentGetPageInfoParams {
@@ -404,9 +415,6 @@ export interface DocumentGetPageInfoParams {
   include_content?: boolean;
 }
 
-Documents.DocumentGetInfoListResponsesGetDocumentInfoListCursor =
-  DocumentGetInfoListResponsesGetDocumentInfoListCursor;
-
 export declare namespace Documents {
   export {
     type DocumentUpdateResponse as DocumentUpdateResponse,
@@ -415,7 +423,6 @@ export declare namespace Documents {
     type DocumentGetInfoResponse as DocumentGetInfoResponse,
     type DocumentGetInfoListResponse as DocumentGetInfoListResponse,
     type DocumentGetPageInfoResponse as DocumentGetPageInfoResponse,
-    DocumentGetInfoListResponsesGetDocumentInfoListCursor as DocumentGetInfoListResponsesGetDocumentInfoListCursor,
     type DocumentUpdateParams as DocumentUpdateParams,
     type DocumentDeleteParams as DocumentDeleteParams,
     type DocumentAddParams as DocumentAddParams,
