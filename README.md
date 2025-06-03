@@ -26,17 +26,13 @@ const client = new ZeroEntropy({
   apiKey: process.env['ZEROENTROPY_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const response = await client.documents.add({
-    collection_name: 'example_collection',
-    content: { type: 'text', text: 'Example Content' },
-    path: 'my_document.txt',
-  });
+const response = await client.documents.add({
+  collection_name: 'example_collection',
+  content: { type: 'text', text: 'Example Content' },
+  path: 'my_document.txt',
+});
 
-  console.log(response.message);
-}
-
-main();
+console.log(response.message);
 ```
 
 ### Request & Response types
@@ -51,11 +47,7 @@ const client = new ZeroEntropy({
   apiKey: process.env['ZEROENTROPY_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const response: ZeroEntropy.StatusGetStatusResponse = await client.status.getStatus();
-}
-
-main();
+const response: ZeroEntropy.StatusGetStatusResponse = await client.status.getStatus();
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -68,22 +60,18 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const response = await client.status.getStatus().catch(async (err) => {
-    if (err instanceof ZeroEntropy.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
-}
-
-main();
+const response = await client.status.getStatus().catch(async (err) => {
+  if (err instanceof ZeroEntropy.APIError) {
+    console.log(err.status); // 400
+    console.log(err.name); // BadRequestError
+    console.log(err.headers); // {server: 'nginx', ...}
+  } else {
+    throw err;
+  }
+});
 ```
 
-Error codes are as followed:
+Error codes are as follows:
 
 | Status Code | Error Type                 |
 | ----------- | -------------------------- |
