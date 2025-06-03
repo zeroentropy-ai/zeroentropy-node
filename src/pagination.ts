@@ -7,7 +7,7 @@ export interface GetDocumentInfoListCursorResponse<Item> {
 }
 
 export interface GetDocumentInfoListCursorParams {
-  id_gt?: string;
+  path_gt?: string;
 
   limit?: number;
 }
@@ -54,6 +54,6 @@ export class GetDocumentInfoListCursor<Item extends { id: string }>
       return null;
     }
 
-    return { params: { id_gt: id } };
+    return { params: { path_gt: id } };
   }
 }
