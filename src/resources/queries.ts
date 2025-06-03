@@ -181,7 +181,7 @@ export namespace QueryTopSnippetsResponse {
      * The range of page indices spanned by this snippet, as a 2-tuple of integers.
      * Inclusive on the first page_index and exclusive on the second page_index.
      */
-    page_span: Array<unknown>;
+    page_span: Array<number>;
 
     /**
      * The path of the document that this snippet comes from.
