@@ -2,6 +2,7 @@
 
 import { APIResource } from '../resource';
 import * as Core from '../core';
+import { GetDocumentInfoListCursor, type GetDocumentInfoListCursorParams } from '../pagination';
 
 export class Documents extends APIResource {
   /**
@@ -79,8 +80,12 @@ export class Documents extends APIResource {
   getInfoList(
     body: DocumentGetInfoListParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<DocumentGetInfoListResponse> {
-    return this._client.post('/documents/get-document-info-list', { body, ...options });
+  ): Core.PagePromise<DocumentGetInfoListResponsesGetDocumentInfoListCursor, DocumentGetInfoListResponse> {
+    return this._client.getAPIList(
+      '/documents/get-document-info-list',
+      DocumentGetInfoListResponsesGetDocumentInfoListCursor,
+      { body, method: 'post', ...options },
+    );
   }
 
   /**
@@ -97,6 +102,8 @@ export class Documents extends APIResource {
     return this._client.post('/documents/get-page-info', { body, ...options });
   }
 }
+
+export class DocumentGetInfoListResponsesGetDocumentInfoListCursor extends GetDocumentInfoListCursor<DocumentGetInfoListResponse> {}
 
 export interface DocumentUpdateResponse {
   new_id: string;
@@ -170,51 +177,45 @@ export namespace DocumentGetInfoResponse {
 }
 
 export interface DocumentGetInfoListResponse {
-  documents: Array<DocumentGetInfoListResponse.Document>;
-}
+  id: string;
 
-export namespace DocumentGetInfoListResponse {
-  export interface Document {
-    id: string;
+  collection_name: string;
 
-    collection_name: string;
+  created_at: string;
 
-    created_at: string;
+  /**
+   * A URL to the document data, which can be used to download the raw document
+   * content or to display the document in frontend applications.
+   *
+   * NOTE: If a `/documents/update-document` call returned a new document id, then
+   * this url will be invalidated and must be retrieved again.
+   */
+  file_url: string;
 
-    /**
-     * A URL to the document data, which can be used to download the raw document
-     * content or to display the document in frontend applications.
-     *
-     * NOTE: If a `/documents/update-document` call returned a new document id, then
-     * this url will be invalidated and must be retrieved again.
-     */
-    file_url: string;
+  index_status:
+    | 'not_parsed'
+    | 'parsing'
+    | 'not_indexed'
+    | 'indexing'
+    | 'indexed'
+    | 'parsing_failed'
+    | 'indexing_failed';
 
-    index_status:
-      | 'not_parsed'
-      | 'parsing'
-      | 'not_indexed'
-      | 'indexing'
-      | 'indexed'
-      | 'parsing_failed'
-      | 'indexing_failed';
+  metadata: Record<string, string | Array<string>>;
 
-    metadata: Record<string, string | Array<string>>;
+  /**
+   * The number of pages in this document. This will be `null` if the document is
+   * parsing or failed to parse. It can also be `null` if the document is a filetype
+   * that does not support pages.
+   */
+  num_pages: number | null;
 
-    /**
-     * The number of pages in this document. This will be `null` if the document is
-     * parsing or failed to parse. It can also be `null` if the document is a filetype
-     * that does not support pages.
-     */
-    num_pages: number | null;
+  path: string;
 
-    path: string;
-
-    /**
-     * The total size of the raw document data, in bytes.
-     */
-    size: number;
-  }
+  /**
+   * The total size of the raw document data, in bytes.
+   */
+  size: number;
 }
 
 export interface DocumentGetPageInfoResponse {
@@ -401,25 +402,11 @@ export interface DocumentGetInfoParams {
   include_content?: boolean;
 }
 
-export interface DocumentGetInfoListParams {
+export interface DocumentGetInfoListParams extends GetDocumentInfoListCursorParams {
   /**
    * The name of the collection.
    */
   collection_name: string;
-
-  /**
-   * The maximum number of documents to return. This field is by default 1024, and
-   * cannot be set larger than 1024
-   */
-  limit?: number;
-
-  /**
-   * All documents returned will have a path strictly greater than the provided
-   * `path_gt` argument. (Comparison will be based on lexicographic comparison. It is
-   * guaranteed that two strings are lexicographically equal if and only if they have
-   * identical binary representations.).
-   */
-  path_gt?: string | null;
 
   /**
    * All documents returned will have a path that starts with the provided path
@@ -456,6 +443,9 @@ export interface DocumentGetPageInfoParams {
   include_content?: boolean;
 }
 
+Documents.DocumentGetInfoListResponsesGetDocumentInfoListCursor =
+  DocumentGetInfoListResponsesGetDocumentInfoListCursor;
+
 export declare namespace Documents {
   export {
     type DocumentUpdateResponse as DocumentUpdateResponse,
@@ -464,6 +454,7 @@ export declare namespace Documents {
     type DocumentGetInfoResponse as DocumentGetInfoResponse,
     type DocumentGetInfoListResponse as DocumentGetInfoListResponse,
     type DocumentGetPageInfoResponse as DocumentGetPageInfoResponse,
+    DocumentGetInfoListResponsesGetDocumentInfoListCursor as DocumentGetInfoListResponsesGetDocumentInfoListCursor,
     type DocumentUpdateParams as DocumentUpdateParams,
     type DocumentDeleteParams as DocumentDeleteParams,
     type DocumentAddParams as DocumentAddParams,
