@@ -82,6 +82,7 @@ describe('resource queries', () => {
       k: 0,
       query: 'query',
       filter: { foo: 'bar' },
+      include_document_metadata: true,
       latency_mode: 'low',
       precise_responses: true,
     });
