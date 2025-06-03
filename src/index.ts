@@ -24,6 +24,7 @@ import {
   DocumentDeleteResponse,
   DocumentGetInfoListParams,
   DocumentGetInfoListResponse,
+  DocumentGetInfoListResponsesGetDocumentInfoListCursor,
   DocumentGetInfoParams,
   DocumentGetInfoResponse,
   DocumentGetPageInfoParams,
@@ -204,6 +205,8 @@ ZeroEntropy.Admin = Admin;
 ZeroEntropy.Status = Status;
 ZeroEntropy.Collections = Collections;
 ZeroEntropy.Documents = Documents;
+ZeroEntropy.DocumentGetInfoListResponsesGetDocumentInfoListCursor =
+  DocumentGetInfoListResponsesGetDocumentInfoListCursor;
 ZeroEntropy.Queries = Queries;
 ZeroEntropy.Parsers = Parsers;
 export declare namespace ZeroEntropy {
@@ -245,6 +248,7 @@ export declare namespace ZeroEntropy {
     type DocumentGetInfoResponse as DocumentGetInfoResponse,
     type DocumentGetInfoListResponse as DocumentGetInfoListResponse,
     type DocumentGetPageInfoResponse as DocumentGetPageInfoResponse,
+    DocumentGetInfoListResponsesGetDocumentInfoListCursor as DocumentGetInfoListResponsesGetDocumentInfoListCursor,
     type DocumentUpdateParams as DocumentUpdateParams,
     type DocumentDeleteParams as DocumentDeleteParams,
     type DocumentAddParams as DocumentAddParams,
