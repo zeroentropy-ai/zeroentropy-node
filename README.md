@@ -1,10 +1,12 @@
-# ZeroEntropy Node API Library
+# ZeroEntropy Node SDK
 
 [![NPM version](https://img.shields.io/npm/v/zeroentropy.svg)](https://npmjs.org/package/zeroentropy) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/zeroentropy)
 
-This library provides convenient access to the ZeroEntropy REST API from server-side TypeScript or JavaScript.
+The ZeroEntropy Node SDK provides convenient access to the [ZeroEntropy REST API](https://docs.zeroentropy.dev/api-reference/) from any TypeScript or JavaScript application.
 
 The REST API documentation can be found on [docs.zeroentropy.dev](https://docs.zeroentropy.dev/api-reference). The full API of this library can be found in [api.md](api.md).
+
+In order to get an API Key, you can visit our [dashboard](https://dashboard.zeroentropy.dev/).
 
 ## Installation
 
