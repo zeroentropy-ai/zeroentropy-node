@@ -1,5 +1,41 @@
 # Changelog
 
+## 0.1.0-alpha.4 (2025-06-04)
+
+Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
+
+### Features
+
+* add SKIP_BREW env var to ./scripts/bootstrap ([#34](https://github.com/zeroentropy-ai/zeroentropy-node/issues/34)) ([1db65f9](https://github.com/zeroentropy-ai/zeroentropy-node/commit/1db65f912a1a5f23668ea2519ac8e1f379f0a806))
+* **api:** manual updates ([188e90a](https://github.com/zeroentropy-ai/zeroentropy-node/commit/188e90a6a7008044bd3a88baa76433b86e1bafa9))
+* **api:** manual updates ([4f364c5](https://github.com/zeroentropy-ai/zeroentropy-node/commit/4f364c5925cf3203ec0cfefbd30f28280019ac13))
+* **api:** manual updates ([d68a8eb](https://github.com/zeroentropy-ai/zeroentropy-node/commit/d68a8eb68f20f0e2735b0a74d74593f92265cd03))
+* **api:** manual updates ([a9ac415](https://github.com/zeroentropy-ai/zeroentropy-node/commit/a9ac4152f59d0fabb2866c628a9d87155b2a471d))
+* **api:** manual updates ([6c6d3e1](https://github.com/zeroentropy-ai/zeroentropy-node/commit/6c6d3e19561559312962e5b0e0d14c0127519418))
+* **client:** accept RFC6838 JSON content types ([#35](https://github.com/zeroentropy-ai/zeroentropy-node/issues/35)) ([5175743](https://github.com/zeroentropy-ai/zeroentropy-node/commit/5175743984e1379e05c4baaa5dded94dc1ae6b85))
+* **client:** send `X-Stainless-Timeout` header ([#28](https://github.com/zeroentropy-ai/zeroentropy-node/issues/28)) ([ecd0912](https://github.com/zeroentropy-ai/zeroentropy-node/commit/ecd0912273945a262c29c7520410d6ae927ff177))
+
+
+### Bug Fixes
+
+* avoid type error in certain environments ([#39](https://github.com/zeroentropy-ai/zeroentropy-node/issues/39)) ([5be66ff](https://github.com/zeroentropy-ai/zeroentropy-node/commit/5be66ffd2783b79bda15848632f46c1a2b0bd53c))
+* **client:** fix export map for index exports ([#30](https://github.com/zeroentropy-ai/zeroentropy-node/issues/30)) ([1518181](https://github.com/zeroentropy-ai/zeroentropy-node/commit/1518181a12687feeb94e7634194f73f7c6d2a92b))
+* **internal:** work around https://github.com/vercel/next.js/issues/76881 ([#41](https://github.com/zeroentropy-ai/zeroentropy-node/issues/41)) ([a78fd51](https://github.com/zeroentropy-ai/zeroentropy-node/commit/a78fd51e969d8ab08858b5871a86609c8067b8ce))
+
+
+### Chores
+
+* **exports:** cleaner resource index imports ([#37](https://github.com/zeroentropy-ai/zeroentropy-node/issues/37)) ([e447d3b](https://github.com/zeroentropy-ai/zeroentropy-node/commit/e447d3b306acdcd7460b8329dd31cc78fedc4388))
+* **exports:** stop using path fallbacks ([#38](https://github.com/zeroentropy-ai/zeroentropy-node/issues/38)) ([f7460de](https://github.com/zeroentropy-ai/zeroentropy-node/commit/f7460de48f5deaead21c777199dfb6acacfdf4ff))
+* **internal:** codegen related update ([#40](https://github.com/zeroentropy-ai/zeroentropy-node/issues/40)) ([d60d321](https://github.com/zeroentropy-ai/zeroentropy-node/commit/d60d3218f82dc4782cfddb2e164b1e3eb05835c7))
+* **internal:** fix devcontainers setup ([#31](https://github.com/zeroentropy-ai/zeroentropy-node/issues/31)) ([0de15d2](https://github.com/zeroentropy-ai/zeroentropy-node/commit/0de15d2ba4cfc81f769646ade15a88c3f30fcaa9))
+* **internal:** remove extra empty newlines ([#36](https://github.com/zeroentropy-ai/zeroentropy-node/issues/36)) ([5b8b92f](https://github.com/zeroentropy-ai/zeroentropy-node/commit/5b8b92f2a64634a3a792b705c066c01132368d3d))
+
+
+### Documentation
+
+* update URLs from stainlessapi.com to stainless.com ([#32](https://github.com/zeroentropy-ai/zeroentropy-node/issues/32)) ([f8ec234](https://github.com/zeroentropy-ai/zeroentropy-node/commit/f8ec2343b8ac63893220f698353a5e127899523f))
+
 ## 0.1.0-alpha.3 (2025-01-28)
 
 Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
