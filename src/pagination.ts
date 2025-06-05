@@ -7,12 +7,12 @@ export interface GetDocumentInfoListCursorResponse<Item> {
 }
 
 export interface GetDocumentInfoListCursorParams {
-  id_gt?: string;
+  path_gt?: string;
 
   limit?: number;
 }
 
-export class GetDocumentInfoListCursor<Item extends { id: string }>
+export class GetDocumentInfoListCursor<Item extends { path: string }>
   extends AbstractPage<Item>
   implements GetDocumentInfoListCursorResponse<Item>
 {
@@ -49,11 +49,11 @@ export class GetDocumentInfoListCursor<Item extends { id: string }>
       return null;
     }
 
-    const id = documents[documents.length - 1]?.id;
-    if (!id) {
+    const path = documents[documents.length - 1]?.path;
+    if (!path) {
       return null;
     }
 
-    return { params: { id_gt: id } };
+    return { params: { path_gt: path } };
   }
 }

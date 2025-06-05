@@ -43,6 +43,15 @@ export interface QueryTopDocumentsResponse {
 export namespace QueryTopDocumentsResponse {
   export interface Result {
     /**
+     * A URL to the document data, which can be used to download the raw document
+     * content or to display the document in frontend applications.
+     *
+     * NOTE: If a `/documents/update-document` call returned a new document id, then
+     * this url will be invalidated and must be retrieved again.
+     */
+    file_url: string;
+
+    /**
      * The metadata for that document. Will be `None` if `include_metadata` is `False`.
      */
     metadata: Record<string, string | Array<string>> | null;
@@ -79,6 +88,9 @@ export namespace QueryTopPagesResponse {
      * has finished parsing, and if it is a filetype that is capable of producing
      * images (e.g. PDF, DOCX, PPT, etc). In all other cases, this field will be
      * `null`.
+     *
+     * NOTE: If a `/documents/update-document` call returned a new document id, then
+     * this url will be invalidated and must be retrieved again.
      */
     image_url: string | null;
 
@@ -101,16 +113,57 @@ export namespace QueryTopPagesResponse {
 }
 
 export interface QueryTopSnippetsResponse {
+  /**
+   * The array of associated document information. Note how each snippet has an
+   * associated document path. After deduplicating the document paths, this array
+   * will contain document info for each document path that is referenced by at least
+   * one snippet result.
+   */
+  document_results: Array<QueryTopSnippetsResponse.DocumentResult>;
+
+  /**
+   * The array of snippets returned by this endpoint. Each snippet result refers to a
+   * particular document path, and index range. Note that all documents, regardless
+   * of filetype, are converted into `UTF-8`-encoded strings. The `start_index` and
+   * `end_index` of a snippet refer to the range of characters in that string, that
+   * have been matched by this snippet.
+   */
   results: Array<QueryTopSnippetsResponse.Result>;
 }
 
 export namespace QueryTopSnippetsResponse {
+  export interface DocumentResult {
+    /**
+     * A URL to the document data, which can be used to download the raw document
+     * content or to display the document in frontend applications.
+     *
+     * NOTE: If a `/documents/update-document` call returned a new document id, then
+     * this url will be invalidated and must be retrieved again.
+     */
+    file_url: string;
+
+    /**
+     * The metadata for that document. Will be `None` if `include_metadata` is `False`.
+     */
+    metadata: Record<string, string | Array<string>> | null;
+
+    /**
+     * The path of the document.
+     */
+    path: string;
+
+    /**
+     * The relevancy score assigned to this document.
+     */
+    score: number;
+  }
+
   /**
    * This is a Snippet.
    *
    * A snippet refers to a particular document path, and index range. Note that all
    * documents, regardless of filetype, are converted into `UTF-8`-encoded strings.
-   * The `start_index` and `end_index` refer to the range of characters. in that
+   * The `start_index` and `end_index` refer to the range of characters in that
    * string, that have been matched by this snippet.
    */
   export interface Result {
@@ -252,6 +305,13 @@ export interface QueryTopSnippetsParams {
    * for more information. If not provided, then all documents will be searched.
    */
   filter?: Record<string, unknown> | null;
+
+  /**
+   * If true, the `document_results` returns will additionally contain document
+   * metadata. This is false by default, as returning metadata can add overhead if
+   * the amount of data to return is large.
+   */
+  include_document_metadata?: boolean;
 
   /**
    * Note that for Top K Snippets, only latency_mode "low" is available. This option

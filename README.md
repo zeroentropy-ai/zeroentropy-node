@@ -1,10 +1,12 @@
-# ZeroEntropy Node API Library
+# ZeroEntropy Node SDK
 
 [![NPM version](https://img.shields.io/npm/v/zeroentropy.svg)](https://npmjs.org/package/zeroentropy) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/zeroentropy)
 
-This library provides convenient access to the ZeroEntropy REST API from server-side TypeScript or JavaScript.
+The ZeroEntropy Node SDK provides convenient access to the [ZeroEntropy REST API](https://docs.zeroentropy.dev/api-reference/) from any TypeScript or JavaScript application.
 
 The REST API documentation can be found on [docs.zeroentropy.dev](https://docs.zeroentropy.dev/api-reference). The full API of this library can be found in [api.md](api.md).
+
+In order to get an API Key, you can visit our [dashboard](https://dashboard.zeroentropy.dev/).
 
 ## Installation
 
@@ -24,17 +26,13 @@ const client = new ZeroEntropy({
   apiKey: process.env['ZEROENTROPY_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const response = await client.documents.add({
-    collection_name: 'example_collection',
-    content: { type: 'text', text: 'Example Content' },
-    path: 'my_document.txt',
-  });
+const response = await client.documents.add({
+  collection_name: 'example_collection',
+  content: { type: 'text', text: 'Example Content' },
+  path: 'my_document.txt',
+});
 
-  console.log(response.message);
-}
-
-main();
+console.log(response.message);
 ```
 
 ### Request & Response types
@@ -49,11 +47,7 @@ const client = new ZeroEntropy({
   apiKey: process.env['ZEROENTROPY_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const response: ZeroEntropy.StatusGetStatusResponse = await client.status.getStatus();
-}
-
-main();
+const response: ZeroEntropy.StatusGetStatusResponse = await client.status.getStatus();
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -66,22 +60,18 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const response = await client.status.getStatus().catch(async (err) => {
-    if (err instanceof ZeroEntropy.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
-}
-
-main();
+const response = await client.status.getStatus().catch(async (err) => {
+  if (err instanceof ZeroEntropy.APIError) {
+    console.log(err.status); // 400
+    console.log(err.name); // BadRequestError
+    console.log(err.headers); // {server: 'nginx', ...}
+  } else {
+    throw err;
+  }
+});
 ```
 
-Error codes are as followed:
+Error codes are as follows:
 
 | Status Code | Error Type                 |
 | ----------- | -------------------------- |
@@ -142,15 +132,15 @@ List methods in the ZeroEntropy API are paginated.
 You can use the `for await … of` syntax to iterate through items across all pages:
 
 ```ts
-async function fetchAllDocuments(params) {
-  const allDocuments = [];
+async function fetchAllDocumentGetInfoListResponses(params) {
+  const allDocumentGetInfoListResponses = [];
   // Automatically fetches more pages as needed.
   for await (const documentGetInfoListResponse of client.documents.getInfoList({
     collection_name: 'example_collection',
   })) {
-    allDocuments.push(documentGetInfoListResponse);
+    allDocumentGetInfoListResponses.push(documentGetInfoListResponse);
   }
-  return allDocuments;
+  return allDocumentGetInfoListResponses;
 }
 ```
 

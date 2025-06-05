@@ -70,9 +70,9 @@ export class Documents extends APIResource {
    * Retrives a list of document metadata information that matches the provided
    * filters.
    *
-   * The documents returned will be sorted by ID in ascending order. `id_gt` can be
-   * used for pagination, and should be set to the ID of the last document returned
-   * in the previous call.
+   * The documents returned will be sorted by path in lexicographically ascending
+   * order. `path_gt` can be used for pagination, and should be set to the path of
+   * the last document returned in the previous call.
    *
    * A `404 Not Found` will be returned if either the collection name does not exist,
    * or the document path does not exist within the provided collection.
@@ -135,6 +135,15 @@ export namespace DocumentGetInfoResponse {
 
     collection_name: string;
 
+    /**
+     * A URL to the document data, which can be used to download the raw document
+     * content or to display the document in frontend applications.
+     *
+     * NOTE: If a `/documents/update-document` call returned a new document id, then
+     * this url will be invalidated and must be retrieved again.
+     */
+    file_url: string;
+
     index_status:
       | 'not_parsed'
       | 'parsing'
@@ -156,6 +165,11 @@ export namespace DocumentGetInfoResponse {
     path: string;
 
     /**
+     * The total size of the raw document data, in bytes.
+     */
+    size: number;
+
+    /**
      * This will be `null`, unless `include_content` was available and set to `true`.
      */
     content?: string | null;
@@ -166,6 +180,17 @@ export interface DocumentGetInfoListResponse {
   id: string;
 
   collection_name: string;
+
+  created_at: string;
+
+  /**
+   * A URL to the document data, which can be used to download the raw document
+   * content or to display the document in frontend applications.
+   *
+   * NOTE: If a `/documents/update-document` call returned a new document id, then
+   * this url will be invalidated and must be retrieved again.
+   */
+  file_url: string;
 
   index_status:
     | 'not_parsed'
@@ -186,6 +211,11 @@ export interface DocumentGetInfoListResponse {
   num_pages: number | null;
 
   path: string;
+
+  /**
+   * The total size of the raw document data, in bytes.
+   */
+  size: number;
 }
 
 export interface DocumentGetPageInfoResponse {
@@ -206,6 +236,9 @@ export namespace DocumentGetPageInfoResponse {
      * has finished parsing, and if it is a filetype that is capable of producing
      * images (e.g. PDF, DOCX, PPT, etc). In all other cases, this field will be
      * `null`.
+     *
+     * NOTE: If a `/documents/update-document` call returned a new document id, then
+     * this url will be invalidated and must be retrieved again.
      */
     image_url: string | null;
 
@@ -374,6 +407,12 @@ export interface DocumentGetInfoListParams extends GetDocumentInfoListCursorPara
    * The name of the collection.
    */
   collection_name: string;
+
+  /**
+   * All documents returned will have a path that starts with the provided path
+   * prefix.
+   */
+  path_prefix?: string | null;
 }
 
 export interface DocumentGetPageInfoParams {
