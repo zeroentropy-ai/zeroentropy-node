@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-alpha.5 (2025-06-14)
+
+Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
+
+### Bug Fixes
+
+* publish script — handle NPM errors correctly ([8a29d6f](https://github.com/zeroentropy-ai/zeroentropy-node/commit/8a29d6f7d4c8b261ffc6fbef0e06f8c802626084))
+
+
+### Chores
+
+* **internal:** make base APIResource abstract ([b8f4193](https://github.com/zeroentropy-ai/zeroentropy-node/commit/b8f41937546e81c3fa61848998da2b7d0d9cf51f))
+
 ## 0.1.0-alpha.4 (2025-06-04)
 
 Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
