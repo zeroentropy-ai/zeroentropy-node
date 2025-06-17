@@ -147,6 +147,7 @@ export class ZeroEntropy extends Core.APIClient {
 
     super({
       baseURL: options.baseURL!,
+      baseURLOverridden: baseURL ? baseURL !== 'https://api.zeroentropy.dev/v1' : false,
       timeout: options.timeout ?? 60000 /* 1 minute */,
       httpAgent: options.httpAgent,
       maxRetries: options.maxRetries,
@@ -164,6 +165,13 @@ export class ZeroEntropy extends Core.APIClient {
   documents: API.Documents = new API.Documents(this);
   queries: API.Queries = new API.Queries(this);
   parsers: API.Parsers = new API.Parsers(this);
+
+  /**
+   * Check whether the base URL is set to its default.
+   */
+  #baseURLOverridden(): boolean {
+    return this.baseURL !== 'https://api.zeroentropy.dev/v1';
+  }
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
