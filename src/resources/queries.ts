@@ -54,7 +54,7 @@ export namespace QueryTopDocumentsResponse {
     /**
      * The metadata for that document. Will be `None` if `include_metadata` is `False`.
      */
-    metadata: Record<string, string | Array<string>> | null;
+    metadata: { [key: string]: string | Array<string> } | null;
 
     /**
      * The path of the document.
@@ -145,7 +145,7 @@ export namespace QueryTopSnippetsResponse {
     /**
      * The metadata for that document. Will be `None` if `include_metadata` is `False`.
      */
-    metadata: Record<string, string | Array<string>> | null;
+    metadata: { [key: string]: string | Array<string> } | null;
 
     /**
      * The path of the document.
@@ -223,7 +223,7 @@ export interface QueryTopDocumentsParams {
    * The query filter to apply. Please read [Metadata Filtering](/metadata-filtering)
    * for more information. If not provided, then all documents will be searched.
    */
-  filter?: Record<string, unknown> | null;
+  filter?: { [key: string]: unknown } | null;
 
   /**
    * Whether or not to include the metadata in the top documents response. If not
@@ -264,7 +264,7 @@ export interface QueryTopPagesParams {
    * The query filter to apply. Please read [Metadata Filtering](/metadata-filtering)
    * for more information. If not provided, then all documents will be searched.
    */
-  filter?: Record<string, unknown> | null;
+  filter?: { [key: string]: unknown } | null;
 
   /**
    * If set to true, then the content of all pages will be returned.
@@ -304,7 +304,7 @@ export interface QueryTopSnippetsParams {
    * The query filter to apply. Please read [Metadata Filtering](/metadata-filtering)
    * for more information. If not provided, then all documents will be searched.
    */
-  filter?: Record<string, unknown> | null;
+  filter?: { [key: string]: unknown } | null;
 
   /**
    * If true, the `document_results` returns will additionally contain document
