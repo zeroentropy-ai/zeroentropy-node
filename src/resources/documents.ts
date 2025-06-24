@@ -153,7 +153,7 @@ export namespace DocumentGetInfoResponse {
       | 'parsing_failed'
       | 'indexing_failed';
 
-    metadata: Record<string, string | Array<string>>;
+    metadata: { [key: string]: string | Array<string> };
 
     /**
      * The number of pages in this document. This will be `null` if the document is
@@ -201,7 +201,7 @@ export interface DocumentGetInfoListResponse {
     | 'parsing_failed'
     | 'indexing_failed';
 
-  metadata: Record<string, string | Array<string>>;
+  metadata: { [key: string]: string | Array<string> };
 
   /**
    * The number of pages in this document. This will be `null` if the document is
@@ -280,7 +280,7 @@ export interface DocumentUpdateParams {
    * need to provide the entire metadata object (Both the original fields, and the
    * new field).
    */
-  metadata?: Record<string, string | Array<string>> | null;
+  metadata?: { [key: string]: string | Array<string> } | null;
 }
 
 export interface DocumentDeleteParams {
@@ -331,7 +331,7 @@ export interface DocumentAddParams {
    * NOTE: The UTF-8-encoded JSON string must be less than 65536 bytes (Whitespace
    * does not count). This limit can be increased upon request.
    */
-  metadata?: Record<string, string | Array<string>>;
+  metadata?: { [key: string]: string | Array<string> };
 
   /**
    * Setting this property to true will put this endpoint in "upsert" mode: If the
