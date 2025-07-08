@@ -65,13 +65,3 @@ Types:
 Methods:
 
 - <code title="post /models/rerank">client.models.<a href="./src/resources/models.ts">rerank</a>({ ...params }) -> ModelRerankResponse</code>
-
-# Parsers
-
-Types:
-
-- <code><a href="./src/resources/parsers.ts">ParserParseDocumentResponse</a></code>
-
-Methods:
-
-- <code title="post /parsers/parse-document">client.parsers.<a href="./src/resources/parsers.ts">parseDocument</a>({ ...params }) -> ParserParseDocumentResponse</code>

@@ -26,7 +26,6 @@ export {
   type DocumentGetPageInfoParams,
 } from './documents';
 export { Models, type ModelRerankResponse, type ModelRerankParams } from './models';
-export { Parsers, type ParserParseDocumentResponse, type ParserParseDocumentParams } from './parsers';
 export {
   Queries,
   type QueryTopDocumentsResponse,
