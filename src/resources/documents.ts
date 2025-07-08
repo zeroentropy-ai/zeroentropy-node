@@ -8,14 +8,15 @@ export class Documents extends APIResource {
   /**
    * Updates a document. This endpoint is atomic.
    *
-   * The only attribute currently supported for update is `metadata`. This endpoint
-   * can only be called with a non-null `metadata` if the document status is
-   * `indexed`.
+   * Currently both `metadata` and `index_status` are supported.
    *
-   * Sometimes, when updating a document, a new document ID will be assigned and the
-   * previous will be deleted. For this reason, the previous and the new document ID
-   * will both be returned in the response. If the document ID was not updated, then
-   * these two IDs will be identical.
+   * - When updating with a non-null `metadata`, the document must have
+   *   `index_status` of `indexed`. After this call, the document will have an
+   *   `index_status` of `not_indexed`, since the document will need to reindex with
+   *   the new metadata.
+   * - When updating with a non-null `index_status`, setting it to
+   *   `not_parsed or `not_indexed`requires that the document must have`index_status`of`parsing_failed`or`indexing_failed`,
+   *   respectively.
    *
    * A `404 Not Found` status code will be returned, if the provided collection name
    * or document path does not exist.
@@ -106,9 +107,10 @@ export class Documents extends APIResource {
 export class DocumentGetInfoListResponsesGetDocumentInfoListCursor extends GetDocumentInfoListCursor<DocumentGetInfoListResponse> {}
 
 export interface DocumentUpdateResponse {
-  new_id: string;
-
-  previous_id: string;
+  /**
+   * This string will always be "Success!". This may change in the future.
+   */
+  message?: string;
 }
 
 export interface DocumentDeleteResponse {
@@ -273,6 +275,14 @@ export interface DocumentUpdateParams {
    * code will be returned if no document with this path was found.
    */
   path: string;
+
+  /**
+   * If the document is in the index_status of
+   * `parsing_failed or `indexing_failed`, then this endpoint allows you to update the index status to `not_parsed`and`not_indexed`,
+   * respectively. This allows the document to re-attempt to parse/index after
+   * failure.
+   */
+  index_status?: 'not_parsed' | 'not_indexed' | null;
 
   /**
    * If this field is provided, the given metadata json will replace the document's

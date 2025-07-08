@@ -168,9 +168,9 @@ export namespace QueryTopSnippetsResponse {
    */
   export interface Result {
     /**
-     * If requested, this contains the full string content of this snippet.
+     * The full string content of this snippet.
      */
-    content: string | null;
+    content: string;
 
     /**
      * The end index of this snippet.
@@ -214,8 +214,7 @@ export interface QueryTopDocumentsParams {
   k: number;
 
   /**
-   * The natural language query to search with. This cannot exceed 4096 characters (A
-   * single UTF-8 codepoint, is considered to be 1 character).
+   * The natural language query to search with. This cannot exceed 4096 UTF-8 bytes.
    */
   query: string;
 
@@ -239,6 +238,13 @@ export interface QueryTopDocumentsParams {
    * result quality.
    */
   latency_mode?: 'low' | 'high';
+
+  /**
+   * The reranker to use after initial retrieval. The default is `null`. You can find
+   * available model ids along with more information at
+   * [/models/rerank](/api-reference/models/rerank).
+   */
+  reranker?: string | null;
 }
 
 export interface QueryTopPagesParams {
@@ -249,14 +255,13 @@ export interface QueryTopPagesParams {
 
   /**
    * The number of pages to return. If there are not enough pages matching your
-   * filters, then fewer may be returned. This number must be between 1 and 2048,
+   * filters, then fewer may be returned. This number must be between 1 and 1024,
    * inclusive.
    */
   k: number;
 
   /**
-   * The natural language query to search with. This cannot exceed 4096 characters (A
-   * single UTF-8 codepoint, is considered to be 1 character).
+   * The natural language query to search with. This cannot exceed 4096 UTF-8 bytes.
    */
   query: string;
 
@@ -289,7 +294,7 @@ export interface QueryTopSnippetsParams {
 
   /**
    * The number of snippets to return. If there are not enough snippets matching your
-   * filters, then fewer may be returned. This number must be between 1 and 2048,
+   * filters, then fewer may be returned. This number must be between 1 and 128,
    * inclusive.
    */
   k: number;
@@ -314,21 +319,19 @@ export interface QueryTopSnippetsParams {
   include_document_metadata?: boolean;
 
   /**
-   * Note that for Top K Snippets, only latency_mode "low" is available. This option
-   * selects between our latency modes. The higher latency mode takes longer, but can
-   * allow for more accurate responses. If desired, test both to customize your
-   * search experience for your particular use-case, or use the default of "low" and
-   * only swap if you need an additional improvement in search result quality.
-   */
-  latency_mode?: 'low';
-
-  /**
    * Enable precise responses. Precise responses will have higher latency, but
    * provide much more precise snippets. When `precise_responses` is set to `true`,
    * the responses will average 200 characters. If set to `false`, the responses will
    * average 2000 characters. The default is `false`.
    */
   precise_responses?: boolean;
+
+  /**
+   * The reranker to use after initial retrieval. The default is `null`. You can find
+   * available model ids, along with more information, at
+   * [/models/rerank](/api-reference/models/rerank).
+   */
+  reranker?: string | null;
 }
 
 export declare namespace Queries {

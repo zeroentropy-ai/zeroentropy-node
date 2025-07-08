@@ -24,6 +24,7 @@ describe('resource documents', () => {
     const response = await client.documents.update({
       collection_name: 'collection_name',
       path: 'path',
+      index_status: 'not_parsed',
       metadata: { foo: 'string' },
     });
   });
