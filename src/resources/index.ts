@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Admin, type AdminCreateOrganizationResponse, type AdminCreateOrganizationParams } from './admin';
+export { Admin } from './admin';
 export {
   Collections,
   type CollectionDeleteResponse,

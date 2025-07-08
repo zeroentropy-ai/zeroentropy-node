@@ -7,7 +7,7 @@ import * as Pagination from './pagination';
 import { type GetDocumentInfoListCursorParams, GetDocumentInfoListCursorResponse } from './pagination';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
-import { Admin, AdminCreateOrganizationParams, AdminCreateOrganizationResponse } from './resources/admin';
+import { Admin } from './resources/admin';
 import {
   CollectionAddParams,
   CollectionAddResponse,
@@ -228,11 +228,7 @@ export declare namespace ZeroEntropy {
     type GetDocumentInfoListCursorResponse as GetDocumentInfoListCursorResponse,
   };
 
-  export {
-    Admin as Admin,
-    type AdminCreateOrganizationResponse as AdminCreateOrganizationResponse,
-    type AdminCreateOrganizationParams as AdminCreateOrganizationParams,
-  };
+  export { Admin as Admin };
 
   export {
     Status as Status,

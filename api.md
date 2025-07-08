@@ -1,13 +1,5 @@
 # Admin
 
-Types:
-
-- <code><a href="./src/resources/admin.ts">AdminCreateOrganizationResponse</a></code>
-
-Methods:
-
-- <code title="post /admin/create-organization">client.admin.<a href="./src/resources/admin.ts">createOrganization</a>({ ...params }) -> AdminCreateOrganizationResponse</code>
-
 # Status
 
 Types:
