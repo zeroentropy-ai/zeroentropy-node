@@ -5,22 +5,6 @@ import * as Core from '../core';
 
 export class Models extends APIResource {
   /**
-   * This provides access to the parsers that we use for indexing. This endpoint will
-   * not access any collection or search index, and the result will not be saved.
-   * This will use the same parsing method as the `/documents/add-document` endpoint.
-   *
-   * A common use-case for this endpoint, is to use our parser in combination with
-   * your own pre-processing step, before then uploading it to the search index using
-   * the `text-pages` filetype.
-   */
-  parseDocument(
-    body: ModelParseDocumentParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ModelParseDocumentResponse> {
-    return this._client.post('/parsers/parse-document', { body, ...options });
-  }
-
-  /**
    * Reranks the provided documents, according to the provided query.
    *
    * The results will be sorted by descending order of relevance. For each document,
@@ -32,13 +16,6 @@ export class Models extends APIResource {
   rerank(body: ModelRerankParams, options?: Core.RequestOptions): Core.APIPromise<ModelRerankResponse> {
     return this._client.post('/models/rerank', { body, ...options });
   }
-}
-
-export interface ModelParseDocumentResponse {
-  /**
-   * The parsed pages. Each string will contain the full contents of a page.
-   */
-  pages: Array<string>;
 }
 
 export interface ModelRerankResponse {
@@ -66,13 +43,6 @@ export namespace ModelRerankResponse {
   }
 }
 
-export interface ModelParseDocumentParams {
-  /**
-   * The document's raw data, as a base64-encoded string
-   */
-  base64_data: string;
-}
-
 export interface ModelRerankParams {
   /**
    * The list of documents to rerank. Each document is a string.
@@ -98,10 +68,5 @@ export interface ModelRerankParams {
 }
 
 export declare namespace Models {
-  export {
-    type ModelParseDocumentResponse as ModelParseDocumentResponse,
-    type ModelRerankResponse as ModelRerankResponse,
-    type ModelParseDocumentParams as ModelParseDocumentParams,
-    type ModelRerankParams as ModelRerankParams,
-  };
+  export { type ModelRerankResponse as ModelRerankResponse, type ModelRerankParams as ModelRerankParams };
 }
