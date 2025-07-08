@@ -60,10 +60,18 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/models.ts">ModelParseDocumentResponse</a></code>
 - <code><a href="./src/resources/models.ts">ModelRerankResponse</a></code>
 
 Methods:
 
-- <code title="post /parsers/parse-document">client.models.<a href="./src/resources/models.ts">parseDocument</a>({ ...params }) -> ModelParseDocumentResponse</code>
 - <code title="post /models/rerank">client.models.<a href="./src/resources/models.ts">rerank</a>({ ...params }) -> ModelRerankResponse</code>
+
+# Parsers
+
+Types:
+
+- <code><a href="./src/resources/parsers.ts">ParserParseDocumentResponse</a></code>
+
+Methods:
+
+- <code title="post /parsers/parse-document">client.parsers.<a href="./src/resources/parsers.ts">parseDocument</a>({ ...params }) -> ParserParseDocumentResponse</code>
