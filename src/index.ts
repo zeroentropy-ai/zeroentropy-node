@@ -7,7 +7,6 @@ import * as Pagination from './pagination';
 import { type GetDocumentInfoListCursorParams, GetDocumentInfoListCursorResponse } from './pagination';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
-import { Admin, AdminCreateOrganizationParams, AdminCreateOrganizationResponse } from './resources/admin';
 import {
   CollectionAddParams,
   CollectionAddResponse,
@@ -33,7 +32,7 @@ import {
   DocumentUpdateResponse,
   Documents,
 } from './resources/documents';
-import { ParserParseDocumentParams, ParserParseDocumentResponse, Parsers } from './resources/parsers';
+import { ModelRerankParams, ModelRerankResponse, Models } from './resources/models';
 import {
   Queries,
   QueryTopDocumentsParams,
@@ -161,12 +160,11 @@ export class ZeroEntropy extends Core.APIClient {
     this.apiKey = apiKey;
   }
 
-  admin: API.Admin = new API.Admin(this);
   status: API.Status = new API.Status(this);
   collections: API.Collections = new API.Collections(this);
   documents: API.Documents = new API.Documents(this);
   queries: API.Queries = new API.Queries(this);
-  parsers: API.Parsers = new API.Parsers(this);
+  models: API.Models = new API.Models(this);
 
   /**
    * Check whether the base URL is set to its default.
@@ -211,14 +209,13 @@ export class ZeroEntropy extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-ZeroEntropy.Admin = Admin;
 ZeroEntropy.Status = Status;
 ZeroEntropy.Collections = Collections;
 ZeroEntropy.Documents = Documents;
 ZeroEntropy.DocumentGetInfoListResponsesGetDocumentInfoListCursor =
   DocumentGetInfoListResponsesGetDocumentInfoListCursor;
 ZeroEntropy.Queries = Queries;
-ZeroEntropy.Parsers = Parsers;
+ZeroEntropy.Models = Models;
 export declare namespace ZeroEntropy {
   export type RequestOptions = Core.RequestOptions;
 
@@ -226,12 +223,6 @@ export declare namespace ZeroEntropy {
   export {
     type GetDocumentInfoListCursorParams as GetDocumentInfoListCursorParams,
     type GetDocumentInfoListCursorResponse as GetDocumentInfoListCursorResponse,
-  };
-
-  export {
-    Admin as Admin,
-    type AdminCreateOrganizationResponse as AdminCreateOrganizationResponse,
-    type AdminCreateOrganizationParams as AdminCreateOrganizationParams,
   };
 
   export {
@@ -278,9 +269,9 @@ export declare namespace ZeroEntropy {
   };
 
   export {
-    Parsers as Parsers,
-    type ParserParseDocumentResponse as ParserParseDocumentResponse,
-    type ParserParseDocumentParams as ParserParseDocumentParams,
+    Models as Models,
+    type ModelRerankResponse as ModelRerankResponse,
+    type ModelRerankParams as ModelRerankParams,
   };
 }
 

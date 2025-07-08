@@ -8,9 +8,9 @@ const client = new ZeroEntropy({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource parsers', () => {
-  test('parseDocument: only required params', async () => {
-    const responsePromise = client.parsers.parseDocument({ base64_data: 'base64_data' });
+describe('resource models', () => {
+  test('rerank: only required params', async () => {
+    const responsePromise = client.models.rerank({ documents: ['string'], query: 'query' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -20,7 +20,12 @@ describe('resource parsers', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('parseDocument: required and optional params', async () => {
-    const response = await client.parsers.parseDocument({ base64_data: 'base64_data' });
+  test('rerank: required and optional params', async () => {
+    const response = await client.models.rerank({
+      documents: ['string'],
+      query: 'query',
+      model: 'model',
+      top_n: 0,
+    });
   });
 });

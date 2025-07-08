@@ -1,13 +1,3 @@
-# Admin
-
-Types:
-
-- <code><a href="./src/resources/admin.ts">AdminCreateOrganizationResponse</a></code>
-
-Methods:
-
-- <code title="post /admin/create-organization">client.admin.<a href="./src/resources/admin.ts">createOrganization</a>({ ...params }) -> AdminCreateOrganizationResponse</code>
-
 # Status
 
 Types:
@@ -66,12 +56,12 @@ Methods:
 - <code title="post /queries/top-pages">client.queries.<a href="./src/resources/queries.ts">topPages</a>({ ...params }) -> QueryTopPagesResponse</code>
 - <code title="post /queries/top-snippets">client.queries.<a href="./src/resources/queries.ts">topSnippets</a>({ ...params }) -> QueryTopSnippetsResponse</code>
 
-# Parsers
+# Models
 
 Types:
 
-- <code><a href="./src/resources/parsers.ts">ParserParseDocumentResponse</a></code>
+- <code><a href="./src/resources/models.ts">ModelRerankResponse</a></code>
 
 Methods:
 
-- <code title="post /parsers/parse-document">client.parsers.<a href="./src/resources/parsers.ts">parseDocument</a>({ ...params }) -> ParserParseDocumentResponse</code>
+- <code title="post /models/rerank">client.models.<a href="./src/resources/models.ts">rerank</a>({ ...params }) -> ModelRerankResponse</code>

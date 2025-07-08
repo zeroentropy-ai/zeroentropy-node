@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.0-alpha.6 (2025-07-08)
+
+Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
+
+### Features
+
+* **api:** manual updates ([77ce9ac](https://github.com/zeroentropy-ai/zeroentropy-node/commit/77ce9ac0be4962f4f1795498d44678942cde51ce))
+* **api:** manual updates ([9a6e616](https://github.com/zeroentropy-ai/zeroentropy-node/commit/9a6e616d7eb9d907d6e99a01f0db9b07003e3a6a))
+* **api:** manual updates ([628fbde](https://github.com/zeroentropy-ai/zeroentropy-node/commit/628fbde29b47202ba454c4078b071ff5f7c6c603))
+* **api:** manual updates ([9fdb2c0](https://github.com/zeroentropy-ai/zeroentropy-node/commit/9fdb2c0631e1afee0bdc0c4c70c908a9b11d7310))
+* **api:** manual updates ([15ace1c](https://github.com/zeroentropy-ai/zeroentropy-node/commit/15ace1c140e20e35f8ed9f173cbd295b79e2e165))
+
 ## 0.1.0-alpha.5 (2025-07-03)
 
 Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
