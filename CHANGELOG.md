@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.1.0-alpha.5 (2025-07-03)
+
+Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
+
+### Features
+
+* **client:** add support for endpoint-specific base URLs ([d1d1ca4](https://github.com/zeroentropy-ai/zeroentropy-node/commit/d1d1ca45010ab9488fac671571058a392ef714bf))
+
+
+### Bug Fixes
+
+* **ci:** release-doctor — report correct token name ([788b21c](https://github.com/zeroentropy-ai/zeroentropy-node/commit/788b21cc597d7b5418bf7c083b754c36dd3f974b))
+* **client:** don't send `Content-Type` for bodyless methods ([4bb4a5a](https://github.com/zeroentropy-ai/zeroentropy-node/commit/4bb4a5a1e672951deb536029a8fb18399b7e07c5))
+* publish script — handle NPM errors correctly ([8a29d6f](https://github.com/zeroentropy-ai/zeroentropy-node/commit/8a29d6f7d4c8b261ffc6fbef0e06f8c802626084))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([2fd06f7](https://github.com/zeroentropy-ai/zeroentropy-node/commit/2fd06f79640749b62e4f12f4219491ea64563ded))
+* **ci:** only run for pushes and fork pull requests ([156d50f](https://github.com/zeroentropy-ai/zeroentropy-node/commit/156d50f38ab3fbbe766d1a12950c81bfa19bf80d))
+* **internal:** make base APIResource abstract ([b8f4193](https://github.com/zeroentropy-ai/zeroentropy-node/commit/b8f41937546e81c3fa61848998da2b7d0d9cf51f))
+* mention unit type in timeout docs ([0d8d06b](https://github.com/zeroentropy-ai/zeroentropy-node/commit/0d8d06bf1945f6f1bade796240bdf0535b5043cf))
+
+
+### Refactors
+
+* **types:** replace Record with mapped types ([fc1894a](https://github.com/zeroentropy-ai/zeroentropy-node/commit/fc1894a426c7472145d97703ec02b485996e9710))
+
 ## 0.1.0-alpha.4 (2025-06-04)
 
 Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
