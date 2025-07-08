@@ -1,5 +1,3 @@
-# Admin
-
 # Status
 
 Types:

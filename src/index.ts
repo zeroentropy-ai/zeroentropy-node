@@ -7,7 +7,6 @@ import * as Pagination from './pagination';
 import { type GetDocumentInfoListCursorParams, GetDocumentInfoListCursorResponse } from './pagination';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
-import { Admin } from './resources/admin';
 import {
   CollectionAddParams,
   CollectionAddResponse,
@@ -161,7 +160,6 @@ export class ZeroEntropy extends Core.APIClient {
     this.apiKey = apiKey;
   }
 
-  admin: API.Admin = new API.Admin(this);
   status: API.Status = new API.Status(this);
   collections: API.Collections = new API.Collections(this);
   documents: API.Documents = new API.Documents(this);
@@ -211,7 +209,6 @@ export class ZeroEntropy extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-ZeroEntropy.Admin = Admin;
 ZeroEntropy.Status = Status;
 ZeroEntropy.Collections = Collections;
 ZeroEntropy.Documents = Documents;
@@ -227,8 +224,6 @@ export declare namespace ZeroEntropy {
     type GetDocumentInfoListCursorParams as GetDocumentInfoListCursorParams,
     type GetDocumentInfoListCursorResponse as GetDocumentInfoListCursorResponse,
   };
-
-  export { Admin as Admin };
 
   export {
     Status as Status,
