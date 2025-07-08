@@ -33,7 +33,6 @@ import {
   Documents,
 } from './resources/documents';
 import { ModelRerankParams, ModelRerankResponse, Models } from './resources/models';
-import { ParserParseDocumentParams, ParserParseDocumentResponse, Parsers } from './resources/parsers';
 import {
   Queries,
   QueryTopDocumentsParams,
@@ -166,7 +165,6 @@ export class ZeroEntropy extends Core.APIClient {
   documents: API.Documents = new API.Documents(this);
   queries: API.Queries = new API.Queries(this);
   models: API.Models = new API.Models(this);
-  parsers: API.Parsers = new API.Parsers(this);
 
   /**
    * Check whether the base URL is set to its default.
@@ -218,7 +216,6 @@ ZeroEntropy.DocumentGetInfoListResponsesGetDocumentInfoListCursor =
   DocumentGetInfoListResponsesGetDocumentInfoListCursor;
 ZeroEntropy.Queries = Queries;
 ZeroEntropy.Models = Models;
-ZeroEntropy.Parsers = Parsers;
 export declare namespace ZeroEntropy {
   export type RequestOptions = Core.RequestOptions;
 
@@ -275,12 +272,6 @@ export declare namespace ZeroEntropy {
     Models as Models,
     type ModelRerankResponse as ModelRerankResponse,
     type ModelRerankParams as ModelRerankParams,
-  };
-
-  export {
-    Parsers as Parsers,
-    type ParserParseDocumentResponse as ParserParseDocumentResponse,
-    type ParserParseDocumentParams as ParserParseDocumentParams,
   };
 }
 
