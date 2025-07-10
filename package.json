@@ -1,6 +1,6 @@
 {
   "name": "zeroentropy",
-  "version": "0.1.0-alpha.6",
+  "version": "0.1.0-alpha.7",
   "description": "The official TypeScript library for the ZeroEntropy API",
   "author": "ZeroEntropy <founders@zeroentropy.dev>",
   "types": "dist/index.d.ts",
