@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.7 (2025-07-10)
+
+Full Changelog: [v0.1.0-alpha.6...v0.1.0-alpha.7](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.6...v0.1.0-alpha.7)
+
+### Chores
+
+* make some internal functions async ([9722ec8](https://github.com/zeroentropy-ai/zeroentropy-node/commit/9722ec887e08667e0c2ffabe3b0e6e5390187da2))
+
 ## 0.1.0-alpha.6 (2025-07-08)
 
 Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
