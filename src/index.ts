@@ -216,6 +216,7 @@ ZeroEntropy.DocumentGetInfoListResponsesGetDocumentInfoListCursor =
   DocumentGetInfoListResponsesGetDocumentInfoListCursor;
 ZeroEntropy.Queries = Queries;
 ZeroEntropy.Models = Models;
+
 export declare namespace ZeroEntropy {
   export type RequestOptions = Core.RequestOptions;
 
