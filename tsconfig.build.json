@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "zeroentropy/*": ["dist/src/*"],
-      "zeroentropy": ["dist/src/index.ts"],
+      "zeroentropy/*": ["./dist/src/*"],
+      "zeroentropy": ["./dist/src/index.ts"],
     },
     "noEmit": false,
     "declaration": true,

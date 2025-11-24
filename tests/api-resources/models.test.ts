@@ -10,7 +10,7 @@ const client = new ZeroEntropy({
 
 describe('resource models', () => {
   test('rerank: only required params', async () => {
-    const responsePromise = client.models.rerank({ documents: ['string'], query: 'query' });
+    const responsePromise = client.models.rerank({ documents: ['string'], model: 'model', query: 'query' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,8 +23,9 @@ describe('resource models', () => {
   test('rerank: required and optional params', async () => {
     const response = await client.models.rerank({
       documents: ['string'],
-      query: 'query',
       model: 'model',
+      query: 'query',
+      latency: 'fast',
       top_n: 0,
     });
   });

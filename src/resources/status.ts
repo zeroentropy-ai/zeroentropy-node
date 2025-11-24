@@ -47,6 +47,12 @@ export interface StatusGetStatusResponse {
   num_failed_documents: number;
 
   /**
+   * The total number of bytes used by documents that are currently indexed. Measured
+   * as UTF-8 bytes. For PDF/DOCX/PPT/etc, this is of the OCR'ed text.
+   */
+  num_indexed_bytes: number;
+
+  /**
    * The number of documents that are currently indexed.
    */
   num_indexed_documents: number;

@@ -7,11 +7,10 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "baseUrl": "./",
     "paths": {
-      "zeroentropy/_shims/auto/*": ["src/_shims/auto/*-node"],
-      "zeroentropy/*": ["src/*"],
-      "zeroentropy": ["src/index.ts"]
+      "zeroentropy/_shims/auto/*": ["./src/_shims/auto/*-node"],
+      "zeroentropy/*": ["./src/*"],
+      "zeroentropy": ["./src/index.ts"]
     },
     "noEmit": true,
 

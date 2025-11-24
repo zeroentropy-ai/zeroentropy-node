@@ -14,9 +14,9 @@ export class Documents extends APIResource {
    *   `index_status` of `indexed`. After this call, the document will have an
    *   `index_status` of `not_indexed`, since the document will need to reindex with
    *   the new metadata.
-   * - When updating with a non-null `index_status`, setting it to
-   *   `not_parsed or `not_indexed`requires that the document must have`index_status`of`parsing_failed`or`indexing_failed`,
-   *   respectively.
+   * - When updating with a non-null `index_status`, setting it to `not_parsed` or
+   *   `not_indexed` requires that the document must have `index_status` of
+   *   `parsing_failed` or `indexing_failed`, respectively.
    *
    * A `404 Not Found` status code will be returned, if the provided collection name
    * or document path does not exist.
@@ -373,9 +373,11 @@ export namespace DocumentAddParams {
     pages: Array<string>;
 
     /**
-     * This field must be `text-pages`
+     * This field must be `text-pages` or `text-pages-unordered`. When `unordered` is
+     * provided, it is assumed that consecutive pages aren't meant to be read one after
+     * another. For example, PDFs are ordered, and CSVs are unordered.
      */
-    type: 'text-pages';
+    type: 'text-pages' | 'text-pages-unordered';
   }
 
   export interface APIBinaryDocument {
