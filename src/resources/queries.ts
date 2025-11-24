@@ -215,8 +215,11 @@ export interface QueryTopDocumentsParams {
 
   /**
    * The natural language query to search with. This cannot exceed 4096 UTF-8 bytes.
+   * If `null`, then the sort will be undefined. The purpose of `null` is to do
+   * faster metadata filter searches without care for relevancy. Cost per query is
+   * unchanged.
    */
-  query: string;
+  query: string | null;
 
   /**
    * The query filter to apply. Please read [Metadata Filtering](/metadata-filtering)

@@ -36,7 +36,7 @@ describe('resource collections', () => {
   });
 
   test('add: required and optional params', async () => {
-    const response = await client.collections.add({ collection_name: 'collection_name' });
+    const response = await client.collections.add({ collection_name: 'collection_name', num_shards: 0 });
   });
 
   test('getList', async () => {
