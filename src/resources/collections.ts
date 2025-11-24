@@ -72,6 +72,15 @@ export interface CollectionAddParams {
    * exceed 1024 bytes.
    */
   collection_name: string;
+
+  /**
+   * [ADVANCED] The number of shards to use for this collection. By using K shards,
+   * your documents can index with K times more throughput. However, queries will be
+   * automatically sent to all K shards and then aggregated. For large collections,
+   * this can make queries faster. But for small collections, this will make queries
+   * slower. `num_shards` must be one of [1, 8, 16, 32, 64]. The default is 1.
+   */
+  num_shards?: number;
 }
 
 export interface CollectionGetListParams {}
