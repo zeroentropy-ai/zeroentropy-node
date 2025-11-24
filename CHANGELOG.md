@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.1.0-alpha.7 (2025-11-24)
+
+Full Changelog: [v0.1.0-alpha.6...v0.1.0-alpha.7](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.6...v0.1.0-alpha.7)
+
+### Features
+
+* **api:** manual updates ([de2c445](https://github.com/zeroentropy-ai/zeroentropy-node/commit/de2c4458b3a9fc3a6bc66b3e34d3db411d5ca6cd))
+
+
+### Chores
+
+* ci build action ([f6e516b](https://github.com/zeroentropy-ai/zeroentropy-node/commit/f6e516bafe89d3d501a111e64a01684588606d41))
+* **deps:** update dependency node-fetch to v2.6.13 ([b514540](https://github.com/zeroentropy-ai/zeroentropy-node/commit/b514540dad74b0359060b3427407f53276f94209))
+* **internal:** formatting change ([f08028e](https://github.com/zeroentropy-ai/zeroentropy-node/commit/f08028ecf081a78515aa37d5a8f31d89bcc5ec12))
+* **internal:** move publish config ([0819835](https://github.com/zeroentropy-ai/zeroentropy-node/commit/0819835ac68f52cc71834e770bab910f9db38eb8))
+* **internal:** remove redundant imports config ([8044b42](https://github.com/zeroentropy-ai/zeroentropy-node/commit/8044b42a7e1860b59633b1c1eea41aecd0761f1a))
+* **internal:** update comment in script ([90782a4](https://github.com/zeroentropy-ai/zeroentropy-node/commit/90782a460c764624013f0cd0025c15c6ddc7a69f))
+* make some internal functions async ([9722ec8](https://github.com/zeroentropy-ai/zeroentropy-node/commit/9722ec887e08667e0c2ffabe3b0e6e5390187da2))
+* update @stainless-api/prism-cli to v5.15.0 ([16c797e](https://github.com/zeroentropy-ai/zeroentropy-node/commit/16c797edaf4fc82dad985a6b8363c26d99da934a))
+* update CI script ([96de540](https://github.com/zeroentropy-ai/zeroentropy-node/commit/96de540a48b20d9e3b5abfed353056d2aca48de7))
+
 ## 0.1.0-alpha.6 (2025-07-08)
 
 Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
