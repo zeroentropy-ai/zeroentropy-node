@@ -30,7 +30,7 @@ describe('resource documents', () => {
   });
 
   test('delete: only required params', async () => {
-    const responsePromise = client.documents.delete({ collection_name: 'collection_name', path: 'path' });
+    const responsePromise = client.documents.delete({ collection_name: 'collection_name', path: 'string' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -41,7 +41,7 @@ describe('resource documents', () => {
   });
 
   test('delete: required and optional params', async () => {
-    const response = await client.documents.delete({ collection_name: 'collection_name', path: 'path' });
+    const response = await client.documents.delete({ collection_name: 'collection_name', path: 'string' });
   });
 
   test('add: only required params', async () => {

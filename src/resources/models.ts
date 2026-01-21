@@ -15,7 +15,7 @@ export class Models extends APIResource {
    *
    * Organizations will, by default, have a ratelimit of `2,500,000`
    * bytes-per-minute. If this is exceeded, requests will be throttled into
-   * `latency: "slow"` mode, up to `10,000,000` bytes-per-minute. If even this is
+   * `latency: "slow"` mode, up to `20,000,000` bytes-per-minute. If even this is
    * exceeded, you will get a `429` error. To request higher ratelimits, please
    * contact [founders@zeroentropy.dev](mailto:founders@zeroentropy.dev) or message
    * us on [Discord](https://go.zeroentropy.dev/discord) or
@@ -28,9 +28,43 @@ export class Models extends APIResource {
 
 export interface ModelRerankResponse {
   /**
+   * The type of inference actually used. If `auto` is requested, then `fast` will be
+   * used by default, with `slow` as a fallback if your ratelimit is exceeded. Else,
+   * this field will be identical to the requested latency mode.
+   */
+  actual_latency_mode: 'fast' | 'slow';
+
+  /**
+   * The total time, in seconds, between rerank request received and rerank response
+   * returned. Client latency should equal `e2e_latency` + your ping to ZeroEntropy's
+   * API.
+   */
+  e2e_latency: number;
+
+  /**
+   * The time, in seconds, to actually inference the request. If this is
+   * significantly lower than `e2e_latency`, this is likely due to ratelimiting.
+   * Please request a higher ratelimit at
+   * [founders@zeroentropy.dev](mailto:founders@zeroentropy.dev) or message us on
+   * [Discord](https://go.zeroentropy.dev/discord) or
+   * [Slack](https://go.zeroentropy.dev/slack)!
+   */
+  inference_latency: number;
+
+  /**
    * The results, ordered by descending order of relevance to the query.
    */
   results: Array<ModelRerankResponse.Result>;
+
+  /**
+   * The total number of bytes in the request. This is used for ratelimiting.
+   */
+  total_bytes: number;
+
+  /**
+   * The total number of tokens in the request. This is used for billing.
+   */
+  total_tokens: number;
 }
 
 export namespace ModelRerankResponse {
