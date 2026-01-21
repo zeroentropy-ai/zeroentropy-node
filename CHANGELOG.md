@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.1.0-alpha.8 (2026-01-21)
+
+Full Changelog: [v0.1.0-alpha.7...v0.1.0-alpha.8](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.7...v0.1.0-alpha.8)
+
+### Features
+
+* **api:** manual updates ([f71c152](https://github.com/zeroentropy-ai/zeroentropy-node/commit/f71c1525ceda47151ebe9fc7781fab45bfff4755))
+
+
+### Bug Fixes
+
+* **mcp:** correct code tool API endpoint ([2bb9b5d](https://github.com/zeroentropy-ai/zeroentropy-node/commit/2bb9b5d1d8ba44e11148d83d52379804e4d8f926))
+* **mcp:** return correct lines on typescript errors ([2c02f32](https://github.com/zeroentropy-ai/zeroentropy-node/commit/2c02f322c6eab9455ab0c7b09f900140157899fd))
+
+
+### Chores
+
+* break long lines in snippets into multiline ([3d7a070](https://github.com/zeroentropy-ai/zeroentropy-node/commit/3d7a0702dde4a0070df30c6bee019382c10dca33))
+* **internal:** codegen related update ([f287ef1](https://github.com/zeroentropy-ai/zeroentropy-node/commit/f287ef1b8a266a4d55104a7a0807c1763663d60f))
+* **internal:** codegen related update ([d32a969](https://github.com/zeroentropy-ai/zeroentropy-node/commit/d32a969b62c4a471129529fb3a22355e1cf96ced))
+* **internal:** codegen related update ([fe15e37](https://github.com/zeroentropy-ai/zeroentropy-node/commit/fe15e3763ab7d9e87e9928e2ef0d1a2b1e66afe3))
+* **internal:** update `actions/checkout` version ([a07ac5f](https://github.com/zeroentropy-ai/zeroentropy-node/commit/a07ac5f9351e87e9d43ff238e0fed102b6c6a799))
+* **internal:** upgrade babel, qs, js-yaml ([7e42bbf](https://github.com/zeroentropy-ai/zeroentropy-node/commit/7e42bbf89e286b7ec07938a28850b10a883b4710))
+
 ## 0.1.0-alpha.7 (2025-11-24)
 
 Full Changelog: [v0.1.0-alpha.6...v0.1.0-alpha.7](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.6...v0.1.0-alpha.7)
