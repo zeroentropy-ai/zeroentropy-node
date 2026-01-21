@@ -114,10 +114,7 @@ export interface DocumentUpdateResponse {
 }
 
 export interface DocumentDeleteResponse {
-  /**
-   * This string will always be "Success!". This may change in the future.
-   */
-  message?: string;
+  deleted_paths: Array<string>;
 }
 
 export interface DocumentAddResponse {
@@ -300,10 +297,13 @@ export interface DocumentDeleteParams {
   collection_name: string;
 
   /**
-   * The filepath of the document that you are deleting. A `404 Not Found` status
-   * code will be returned if no document with this path was found.
+   * The path(s) of the document(s) that you are deleting. Must be either a `string`,
+   * or a `list[str]` between 1 and 64 inclusive. A `404 Not Found` status code will
+   * be returned if no document(s) with this path was found. If at least one of the
+   * paths provided do exist, then `200 OK` will be returned, along with an array of
+   * the document paths that were found and thus deleted.
    */
-  path: string;
+  path: string | Array<string>;
 }
 
 export interface DocumentAddParams {
