@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.9 (2026-01-24)
+
+Full Changelog: [v0.1.0-alpha.8...v0.1.0-alpha.9](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.8...v0.1.0-alpha.9)
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([055cbcb](https://github.com/zeroentropy-ai/zeroentropy-node/commit/055cbcbdb5c87322ee175428f0e89c791fe56148))
+
 ## 0.1.0-alpha.8 (2026-01-21)
 
 Full Changelog: [v0.1.0-alpha.7...v0.1.0-alpha.8](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.7...v0.1.0-alpha.8)
