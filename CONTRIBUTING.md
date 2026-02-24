@@ -60,7 +60,7 @@ $ yarn link zeroentropy
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global zeroentropy
+$ pnpm link --global zeroentropy
 ```
 
 ## Running tests
