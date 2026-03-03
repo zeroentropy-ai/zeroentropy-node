@@ -69,10 +69,44 @@ export namespace QueryTopDocumentsResponse {
 }
 
 export interface QueryTopPagesResponse {
+  /**
+   * The array of associated document information. Note how each result page has an
+   * associated document path. After deduplicating the document paths, this array
+   * will contain document info for each document path that is referenced by at least
+   * one page result.
+   */
+  document_results: Array<QueryTopPagesResponse.DocumentResult>;
+
   results: Array<QueryTopPagesResponse.Result>;
 }
 
 export namespace QueryTopPagesResponse {
+  export interface DocumentResult {
+    /**
+     * A URL to the document data, which can be used to download the raw document
+     * content or to display the document in frontend applications.
+     *
+     * NOTE: If a `/documents/update-document` call returned a new document id, then
+     * this url will be invalidated and must be retrieved again.
+     */
+    file_url: string;
+
+    /**
+     * The metadata for that document. Will be `None` if `include_metadata` is `False`.
+     */
+    metadata: { [key: string]: string | Array<string> } | null;
+
+    /**
+     * The path of the document.
+     */
+    path: string;
+
+    /**
+     * The relevancy score assigned to this document.
+     */
+    score: number;
+  }
+
   /**
    * A Page's metadata.
    */
@@ -278,6 +312,12 @@ export interface QueryTopPagesParams {
    * If set to true, then the content of all pages will be returned.
    */
   include_content?: boolean;
+
+  /**
+   * Whether or not to include the document metadata in the response. If not
+   * provided, then the default will be `False`.
+   */
+  include_metadata?: boolean;
 
   /**
    * This option selects between our two latency modes. The higher latency mode takes
