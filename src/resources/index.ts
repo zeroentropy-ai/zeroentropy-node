@@ -25,7 +25,13 @@ export {
   type DocumentGetInfoListParams,
   type DocumentGetPageInfoParams,
 } from './documents';
-export { Models, type ModelRerankResponse, type ModelRerankParams } from './models';
+export {
+  Models,
+  type ModelEmbedResponse,
+  type ModelRerankResponse,
+  type ModelEmbedParams,
+  type ModelRerankParams,
+} from './models';
 export {
   Queries,
   type QueryTopDocumentsResponse,
