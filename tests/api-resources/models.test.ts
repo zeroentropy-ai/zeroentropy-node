@@ -29,9 +29,9 @@ describe('resource models', () => {
       input: 'string',
       input_type: 'query',
       model: 'model',
+      dimensions: 0,
+      encoding_format: 'float',
       latency: 'fast',
-      output_dimensions: 0,
-      output_format: 'float',
     });
   });
 
