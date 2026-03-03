@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.1.0-alpha.9 (2026-03-03)
+
+Full Changelog: [v0.1.0-alpha.8...v0.1.0-alpha.9](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.8...v0.1.0-alpha.9)
+
+### Features
+
+* **api:** manual updates ([434995f](https://github.com/zeroentropy-ai/zeroentropy-node/commit/434995f69a1b575009d85c8caed554916d0902bc))
+
+
+### Bug Fixes
+
+* **docs/contributing:** correct pnpm link command ([e9cf186](https://github.com/zeroentropy-ai/zeroentropy-node/commit/e9cf186189694513e352cc8ce2f12ea39dbf82bc))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([055cbcb](https://github.com/zeroentropy-ai/zeroentropy-node/commit/055cbcbdb5c87322ee175428f0e89c791fe56148))
+* **client:** do not parse responses with empty content-length ([2e11491](https://github.com/zeroentropy-ai/zeroentropy-node/commit/2e114913288d1d1ad63bb8b452984e95531d2dff))
+* **internal:** move stringifyQuery implementation to internal function ([17fadcb](https://github.com/zeroentropy-ai/zeroentropy-node/commit/17fadcb5fd8620e1b388d5d7da4f313922551b1c))
+* update mock server docs ([959f76a](https://github.com/zeroentropy-ai/zeroentropy-node/commit/959f76a01d6397bdf3decf4f61e5cb6df75105dc))
+
 ## 0.1.0-alpha.8 (2026-01-21)
 
 Full Changelog: [v0.1.0-alpha.7...v0.1.0-alpha.8](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.7...v0.1.0-alpha.8)
