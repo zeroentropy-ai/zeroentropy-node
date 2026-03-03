@@ -62,8 +62,9 @@ export interface ModelEmbedResponse {
 export namespace ModelEmbedResponse {
   export interface Result {
     /**
-     * The embedding of the input text. If `base64` format is requested, the response
-     * will be an fp32 little endian byte array, encoded as base64.
+     * The embedding of the input text, as an array of floats. If `base64` format is
+     * requested, the response will be an fp32 little endian byte array, encoded as a
+     * base64 string.
      */
     embedding: Array<number> | string;
   }
@@ -145,7 +146,7 @@ export namespace ModelRerankResponse {
 
 export interface ModelEmbedParams {
   /**
-   * The string, or list of strings, to embed
+   * The string, or list of strings, to embed.
    */
   input: string | Array<string>;
 
@@ -160,25 +161,28 @@ export interface ModelEmbedParams {
   model: string;
 
   /**
+   * The output dimensionality of the embedding model. For `zembed-1`, the available
+   * options are: [2560, 1280, 640, 320, 160, 80, 40].
+   */
+  dimensions?: number | null;
+
+  /**
+   * The output format of the embedding. If `float`, an array of floats will be
+   * returned for each embeddings. If `base64`, a f32 little endian byte array will
+   * be returned, encoded as a base64 string. `base64` is significantly more
+   * efficient than `float`. The default is `float`.
+   */
+  encoding_format?: 'float' | 'base64';
+
+  /**
    * Whether the call will be inferenced "fast" or "slow". RateLimits for slow API
-   * calls are orders of magnitude higher, but you can expect >10 second latency.
+   * calls are orders of magnitude higher, but you can expect 2-20 second latency.
    * Fast inferences are guaranteed subsecond, but rate limits are lower. If not
    * specified, first a "fast" call will be attempted, but if you have exceeded your
    * fast rate limit, then a slow call will be executed. If explicitly set to "fast",
    * then 429 will be returned if it cannot be executed fast.
    */
   latency?: 'fast' | 'slow' | null;
-
-  /**
-   * The output dimensionality of the embedding model.
-   */
-  output_dimensions?: number | null;
-
-  /**
-   * The output format of the embedding. `base64` is significantly more efficient
-   * than `float`. The default is `float`.
-   */
-  output_format?: 'float' | 'base64';
 }
 
 export interface ModelRerankParams {
