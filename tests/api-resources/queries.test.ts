@@ -58,6 +58,7 @@ describe('resource queries', () => {
       query: 'query',
       filter: { foo: 'bar' },
       include_content: true,
+      include_metadata: true,
       latency_mode: 'low',
     });
   });
