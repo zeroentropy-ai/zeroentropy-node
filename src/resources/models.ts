@@ -5,6 +5,26 @@ import * as Core from '../core';
 
 export class Models extends APIResource {
   /**
+   * Embeds the provided input text with ZeroEntropy embedding models.
+   *
+   * The results will be returned in the same order as the text provided. The
+   * embedding is such that queries will have high cosine similarity with documents
+   * that are relevant to that query.
+   *
+   * Organizations will, by default, have a ratelimit of `2,500,000` bytes-per-minute
+   * and 1000 QPM. Ratelimits are refreshed every 15 seconds. If this is exceeded,
+   * requests will be throttled into `latency: "slow"` mode, up to `20,000,000`
+   * bytes-per-minute. If even this is exceeded, you will get a `429` error. To
+   * request higher ratelimits, please contact
+   * [founders@zeroentropy.dev](mailto:founders@zeroentropy.dev) or message us on
+   * [Discord](https://go.zeroentropy.dev/discord) or
+   * [Slack](https://go.zeroentropy.dev/slack)!
+   */
+  embed(body: ModelEmbedParams, options?: Core.RequestOptions): Core.APIPromise<ModelEmbedResponse> {
+    return this._client.post('/models/embed', { body, ...options });
+  }
+
+  /**
    * Reranks the provided documents, according to the provided query.
    *
    * The results will be sorted by descending order of relevance. For each document,
@@ -13,16 +33,55 @@ export class Models extends APIResource {
    * by the reranker model. The results will be returned in descending order of
    * relevance.
    *
-   * Organizations will, by default, have a ratelimit of `2,500,000`
-   * bytes-per-minute. If this is exceeded, requests will be throttled into
-   * `latency: "slow"` mode, up to `20,000,000` bytes-per-minute. If even this is
-   * exceeded, you will get a `429` error. To request higher ratelimits, please
-   * contact [founders@zeroentropy.dev](mailto:founders@zeroentropy.dev) or message
-   * us on [Discord](https://go.zeroentropy.dev/discord) or
+   * Organizations will, by default, have a ratelimit of `2,500,000` bytes-per-minute
+   * and 1000 QPM. Ratelimits are refreshed every 15 seconds. If this is exceeded,
+   * requests will be throttled into `latency: "slow"` mode, up to `20,000,000`
+   * bytes-per-minute. If even this is exceeded, you will get a `429` error. To
+   * request higher ratelimits, please contact
+   * [founders@zeroentropy.dev](mailto:founders@zeroentropy.dev) or message us on
+   * [Discord](https://go.zeroentropy.dev/discord) or
    * [Slack](https://go.zeroentropy.dev/slack)!
    */
   rerank(body: ModelRerankParams, options?: Core.RequestOptions): Core.APIPromise<ModelRerankResponse> {
     return this._client.post('/models/rerank', { body, ...options });
+  }
+}
+
+export interface ModelEmbedResponse {
+  /**
+   * The list of embedding results.
+   */
+  results: Array<ModelEmbedResponse.Result>;
+
+  /**
+   * Statistics regarding the tokens used by the request.
+   */
+  usage: ModelEmbedResponse.Usage;
+}
+
+export namespace ModelEmbedResponse {
+  export interface Result {
+    /**
+     * The embedding of the input text, as an array of floats. If `base64` format is
+     * requested, the response will be an fp32 little endian byte array, encoded as a
+     * base64 string.
+     */
+    embedding: Array<number> | string;
+  }
+
+  /**
+   * Statistics regarding the tokens used by the request.
+   */
+  export interface Usage {
+    /**
+     * The total number of bytes in the request. This is used for ratelimiting.
+     */
+    total_bytes: number;
+
+    /**
+     * The total number of tokens in the request. This is used for billing.
+     */
+    total_tokens: number;
   }
 }
 
@@ -85,6 +144,47 @@ export namespace ModelRerankResponse {
   }
 }
 
+export interface ModelEmbedParams {
+  /**
+   * The string, or list of strings, to embed.
+   */
+  input: string | Array<string>;
+
+  /**
+   * The input type. For retrieval tasks, either `query` or `document`.
+   */
+  input_type: 'query' | 'document';
+
+  /**
+   * The model ID to use for embedding. Options are: ["zembed-1"]
+   */
+  model: string;
+
+  /**
+   * The output dimensionality of the embedding model. For `zembed-1`, the available
+   * options are: [2560, 1280, 640, 320, 160, 80, 40].
+   */
+  dimensions?: number | null;
+
+  /**
+   * The output format of the embedding. If `float`, an array of floats will be
+   * returned for each embeddings. If `base64`, a f32 little endian byte array will
+   * be returned, encoded as a base64 string. `base64` is significantly more
+   * efficient than `float`. The default is `float`.
+   */
+  encoding_format?: 'float' | 'base64';
+
+  /**
+   * Whether the call will be inferenced "fast" or "slow". RateLimits for slow API
+   * calls are orders of magnitude higher, but you can expect 2-20 second latency.
+   * Fast inferences are guaranteed subsecond, but rate limits are lower. If not
+   * specified, first a "fast" call will be attempted, but if you have exceeded your
+   * fast rate limit, then a slow call will be executed. If explicitly set to "fast",
+   * then 429 will be returned if it cannot be executed fast.
+   */
+  latency?: 'fast' | 'slow' | null;
+}
+
 export interface ModelRerankParams {
   /**
    * The list of documents to rerank. Each document is a string.
@@ -120,5 +220,10 @@ export interface ModelRerankParams {
 }
 
 export declare namespace Models {
-  export { type ModelRerankResponse as ModelRerankResponse, type ModelRerankParams as ModelRerankParams };
+  export {
+    type ModelEmbedResponse as ModelEmbedResponse,
+    type ModelRerankResponse as ModelRerankResponse,
+    type ModelEmbedParams as ModelEmbedParams,
+    type ModelRerankParams as ModelRerankParams,
+  };
 }

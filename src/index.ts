@@ -32,7 +32,13 @@ import {
   DocumentUpdateResponse,
   Documents,
 } from './resources/documents';
-import { ModelRerankParams, ModelRerankResponse, Models } from './resources/models';
+import {
+  ModelEmbedParams,
+  ModelEmbedResponse,
+  ModelRerankParams,
+  ModelRerankResponse,
+  Models,
+} from './resources/models';
 import {
   Queries,
   QueryTopDocumentsParams,
@@ -271,7 +277,9 @@ export declare namespace ZeroEntropy {
 
   export {
     Models as Models,
+    type ModelEmbedResponse as ModelEmbedResponse,
     type ModelRerankResponse as ModelRerankResponse,
+    type ModelEmbedParams as ModelEmbedParams,
     type ModelRerankParams as ModelRerankParams,
   };
 }

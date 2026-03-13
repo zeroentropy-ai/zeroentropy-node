@@ -9,6 +9,32 @@ const client = new ZeroEntropy({
 });
 
 describe('resource models', () => {
+  test('embed: only required params', async () => {
+    const responsePromise = client.models.embed({
+      input: 'string',
+      input_type: 'query',
+      model: 'model',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('embed: required and optional params', async () => {
+    const response = await client.models.embed({
+      input: 'string',
+      input_type: 'query',
+      model: 'model',
+      dimensions: 0,
+      encoding_format: 'float',
+      latency: 'fast',
+    });
+  });
+
   test('rerank: only required params', async () => {
     const responsePromise = client.models.rerank({
       documents: ['string'],

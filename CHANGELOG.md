@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.1.0-alpha.10 (2026-03-07)
+
+Full Changelog: [v0.1.0-alpha.9...v0.1.0-alpha.10](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.9...v0.1.0-alpha.10)
+
+### Features
+
+* **api:** manual updates ([471ffee](https://github.com/zeroentropy-ai/zeroentropy-node/commit/471ffee63884cc8841645ed87fd349d389294284))
+* **api:** manual updates ([9ea7cea](https://github.com/zeroentropy-ai/zeroentropy-node/commit/9ea7ceaff47290e5304f01353b5bff212caf0d19))
+* **api:** manual updates ([0879900](https://github.com/zeroentropy-ai/zeroentropy-node/commit/0879900ce1e3c4ff5900e2b648d63185e29c6d8e))
+
+
+### Bug Fixes
+
+* **client:** preserve URL params already embedded in path ([0069421](https://github.com/zeroentropy-ai/zeroentropy-node/commit/00694211cb65420ffdfaaebd7f1bf6ce9c35751c))
+
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([e5578bc](https://github.com/zeroentropy-ai/zeroentropy-node/commit/e5578bc014968908516e60a4263df0fb3696713d))
+* **internal:** codegen related update ([5b8c286](https://github.com/zeroentropy-ai/zeroentropy-node/commit/5b8c286e978ac3be2a6bc600ea35492264099220))
+* **test:** do not count install time for mock server timeout ([2402313](https://github.com/zeroentropy-ai/zeroentropy-node/commit/2402313a21e6c0e962c68ec564bb17a50d068235))
+
 ## 0.1.0-alpha.9 (2026-03-03)
 
 Full Changelog: [v0.1.0-alpha.8...v0.1.0-alpha.9](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.8...v0.1.0-alpha.9)

@@ -60,8 +60,10 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/models.ts">ModelEmbedResponse</a></code>
 - <code><a href="./src/resources/models.ts">ModelRerankResponse</a></code>
 
 Methods:
 
+- <code title="post /models/embed">client.models.<a href="./src/resources/models.ts">embed</a>({ ...params }) -> ModelEmbedResponse</code>
 - <code title="post /models/rerank">client.models.<a href="./src/resources/models.ts">rerank</a>({ ...params }) -> ModelRerankResponse</code>
