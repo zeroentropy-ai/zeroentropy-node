@@ -1,5 +1,35 @@
 # Changelog
 
+## 0.1.0-alpha.11 (2026-05-01)
+
+Full Changelog: [v0.1.0-alpha.10...v0.1.0-alpha.11](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.10...v0.1.0-alpha.11)
+
+### Features
+
+* support setting headers via env ([421be8a](https://github.com/zeroentropy-ai/zeroentropy-node/commit/421be8a2da546cdb6360033153bd5bb0ec36285e))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([ad14cb8](https://github.com/zeroentropy-ai/zeroentropy-node/commit/ad14cb8b44632f6e9d114b4dee381260241e1eb3))
+* **internal:** codegen related update ([8aae49f](https://github.com/zeroentropy-ai/zeroentropy-node/commit/8aae49f6fe4d41f4d72069b9c855cf0b9290384f))
+* **internal:** more robust bootstrap script ([7eeb4ae](https://github.com/zeroentropy-ai/zeroentropy-node/commit/7eeb4ae68489d5abadf34bbe78a355d4f4897fb6))
+* **internal:** tweak CI branches ([c0e7952](https://github.com/zeroentropy-ai/zeroentropy-node/commit/c0e79524e59cab23ca892fcbdc075923ecd2fb55))
+* **internal:** update gitignore ([56c5654](https://github.com/zeroentropy-ai/zeroentropy-node/commit/56c5654b5d377df0b833fce219b73945d487ee80))
+* **internal:** update multipart form array serialization ([3fcd1df](https://github.com/zeroentropy-ai/zeroentropy-node/commit/3fcd1dfb6f1cf01d0804fb1571ad9b213e68d942))
+* **tests:** bump steady to v0.19.4 ([9e94e5c](https://github.com/zeroentropy-ai/zeroentropy-node/commit/9e94e5c8849deafdaa92e0c5ffd7e19e4efae853))
+* **tests:** bump steady to v0.19.5 ([181566c](https://github.com/zeroentropy-ai/zeroentropy-node/commit/181566c7a3bac0b4c9855c374cbdde0071096833))
+* **tests:** bump steady to v0.19.6 ([291bdf2](https://github.com/zeroentropy-ai/zeroentropy-node/commit/291bdf21202c4e333a08baeffb9d4a31a3a640b5))
+* **tests:** bump steady to v0.19.7 ([124fb21](https://github.com/zeroentropy-ai/zeroentropy-node/commit/124fb21e2a3393814369f270a5b8f807a009b8ec))
+* **tests:** bump steady to v0.20.1 ([bfc164c](https://github.com/zeroentropy-ai/zeroentropy-node/commit/bfc164cc8ba80b93aef0fc90d551bd0b4b38359f))
+* **tests:** bump steady to v0.20.2 ([3131593](https://github.com/zeroentropy-ai/zeroentropy-node/commit/3131593c25c3fdb300e1032d738b32df7b6b5786))
+* **tests:** bump steady to v0.22.1 ([bf20a55](https://github.com/zeroentropy-ai/zeroentropy-node/commit/bf20a558f88afc5ac0dcc350bc40010089e43ce8))
+
+
+### Refactors
+
+* **tests:** switch from prism to steady ([3aa529e](https://github.com/zeroentropy-ai/zeroentropy-node/commit/3aa529ec81bb884439e6e603ddf4e6437496ce8c))
+
 ## 0.1.0-alpha.10 (2026-03-07)
 
 Full Changelog: [v0.1.0-alpha.9...v0.1.0-alpha.10](https://github.com/zeroentropy-ai/zeroentropy-node/compare/v0.1.0-alpha.9...v0.1.0-alpha.10)
